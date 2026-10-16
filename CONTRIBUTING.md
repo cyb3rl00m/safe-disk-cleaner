@@ -63,5 +63,4 @@ Please make sure both pass before opening a pull request.
 bash packaging/build-deb.sh     # → dist/safe-disk-cleaner_1.0.0_all.deb (version from src/safe_disk_cleaner/__init__.py)
 ```
 
-Publishing a GitHub release builds the `.deb`, attaches it to the release and adds it to the signed
-APT repository on the `gh-pages` branch (`packaging/publish-apt.sh` → `packaging/apt_repo.py`).
+Publishing a GitHub release builds the `.deb` and attaches it to the release automatically.

@@ -12,8 +12,6 @@ First release.
 - Permanent journal size limit and Snap `refresh.retain` setting.
 - `--report` mode for the terminal.
 - Arch: `install.sh` also installs `pacman-contrib` (needed to clean the pacman cache safely).
-- APT repository on GitHub Pages: add it once, then updates arrive with `apt upgrade`.
-  Signed, published automatically by the release workflow.
 - `.deb` package (`packaging/build-deb.sh`), built and attached to GitHub releases automatically.
 - Overview: a checkbox for every category (with a “partly selected” state), live “Selected to clean”
   total, a 3-step how-to, and clearer “all selected / not selected” labels in the sidebar.

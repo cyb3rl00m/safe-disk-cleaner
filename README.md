@@ -7,6 +7,7 @@
 **See where your disk space went — and understand what is safe to delete.**
 
 [![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Tests](https://github.com/cyb3rl00m/safe-disk-cleaner/actions/workflows/tests.yml/badge.svg)](https://github.com/cyb3rl00m/safe-disk-cleaner/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -70,34 +71,9 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ## Install
 
-### Ubuntu, Debian, Linux Mint, Pop!_OS — APT repository (recommended)
+### Ubuntu, Debian, Linux Mint, Pop!_OS — `.deb` package (recommended)
 
-Add the repository once, and Safe Disk Cleaner updates together with the rest of your system
-through `sudo apt update && sudo apt upgrade`.
-
-```bash
-wget -qO- https://cyb3rl00m.github.io/safe-disk-cleaner/apt/safe-disk-cleaner.gpg \
-  | sudo tee /usr/share/keyrings/safe-disk-cleaner.gpg > /dev/null
-
-sudo tee /etc/apt/sources.list.d/safe-disk-cleaner.sources > /dev/null <<'EOF'
-Types: deb
-URIs: https://cyb3rl00m.github.io/safe-disk-cleaner/apt
-Suites: stable
-Components: main
-Signed-By: /usr/share/keyrings/safe-disk-cleaner.gpg
-EOF
-
-sudo apt update
-sudo apt install safe-disk-cleaner
-```
-
-Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
-libadwaita, Python bindings and pkexec) automatically. Already installed the `.deb`? Just run the
-commands above — future versions will then arrive as normal updates.
-
-### Ubuntu, Debian, Linux Mint, Pop!_OS — single `.deb` file
-
-Download and install version 1.0.0 in one go:
+Download and install version 1.0.0:
 
 ```bash
 wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.0.0/safe-disk-cleaner_1.0.0_all.deb
@@ -108,8 +84,12 @@ Or download **`safe-disk-cleaner_1.0.0_all.deb`** by hand from the
 [release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.0.0), open a terminal in
 the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
 
-With this method you don't get automatic updates — download new versions from the
-[releases page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases).
+Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
+libadwaita, Python bindings and pkexec) automatically.
+
+**Updating:** download the newest `.deb` from the
+[releases page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases) and install it the same way —
+it replaces the old version.
 
 ### Fedora, Arch, openSUSE and others — from source
 
@@ -136,15 +116,8 @@ python3 safe-disk-cleaner --report   # or: print a read-only report in the termi
 ### Uninstall
 
 ```bash
-sudo apt remove safe-disk-cleaner     # if you installed it with APT or the .deb
+sudo apt remove safe-disk-cleaner     # if you installed the .deb
 sudo bash uninstall.sh                # if you used install.sh
-```
-
-To also remove the APT repository:
-
-```bash
-sudo rm /etc/apt/sources.list.d/safe-disk-cleaner.sources /usr/share/keyrings/safe-disk-cleaner.gpg
-sudo apt update
 ```
 
 ## How to use it
