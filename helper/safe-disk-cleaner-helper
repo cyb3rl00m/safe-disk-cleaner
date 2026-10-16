@@ -1,0 +1,20 @@
+#!/usr/bin/python3 -I
+"""Root helper launcher, started by the app through pkexec.
+
+Installed copy: /usr/libexec/safe-disk-cleaner-helper, which only ever loads
+code from the root-owned /usr/lib/safe-disk-cleaner. When run from the source
+folder (development), it loads ../src next to itself.
+"""
+import os
+import sys
+
+HERE = os.path.dirname(os.path.realpath(__file__))
+if HERE == "/usr/libexec":
+    LIB = "/usr/lib/safe-disk-cleaner"
+else:
+    LIB = os.path.join(os.path.dirname(HERE), "src")
+sys.path.insert(0, LIB)
+
+from safe_disk_cleaner.helper import main  # noqa: E402
+
+sys.exit(main())

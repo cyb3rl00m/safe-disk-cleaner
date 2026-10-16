@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+"""Launcher. Works both from the source folder and when installed."""
+import os
+import sys
+
+HERE = os.path.dirname(os.path.realpath(__file__))
+for candidate in (os.path.join(HERE, "src"), "/usr/lib/safe-disk-cleaner"):
+    if os.path.isdir(os.path.join(candidate, "safe_disk_cleaner")):
+        sys.path.insert(0, candidate)
+        break
+
+from safe_disk_cleaner.main import main  # noqa: E402
+
+sys.exit(main(sys.argv))

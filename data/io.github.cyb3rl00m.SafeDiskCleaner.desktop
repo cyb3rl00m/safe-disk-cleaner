@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Safe Disk Cleaner
+GenericName=Disk Cleaner
+Comment=See where disk space is wasted and learn what is safe to delete
+Exec=safe-disk-cleaner
+Icon=io.github.cyb3rl00m.SafeDiskCleaner
+Terminal=false
+Type=Application
+Categories=GTK;System;Utility;
+Keywords=disk;space;clean;cleaner;cache;kernel;journal;snap;flatpak;thumbnails;trash;bleachbit;
+StartupNotify=true

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.cyb3rl00m.SafeDiskCleaner</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>Safe Disk Cleaner</name>
+  <summary>See where disk space is wasted and learn what is safe to delete</summary>
+  <description>
+    <p>
+      Safe Disk Cleaner finds wasted space on your Linux system and explains every item in plain
+      language: what it is, why it grows, whether it is safe to delete and exactly what will run.
+    </p>
+    <ul>
+      <li>Old kernels (always keeps the running kernel plus a fallback)</li>
+      <li>Package download caches (APT, DNF, pacman, zypper) and orphaned packages</li>
+      <li>Old Snap revisions and unused Flatpak runtimes</li>
+      <li>An oversized system journal, with an option to cap it permanently</li>
+      <li>Crash reports, core dumps and old rotated logs</li>
+      <li>Previews of files that no longer exist, app caches and the Trash</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Overview: what can be cleaned, with a checkbox for each category</caption>
+      <image>https://raw.githubusercontent.com/cyb3rl00m/safe-disk-cleaner/main/docs/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+  <launchable type="desktop-id">io.github.cyb3rl00m.SafeDiskCleaner.desktop</launchable>
+  <url type="homepage">https://github.com/cyb3rl00m/safe-disk-cleaner</url>
+  <url type="bugtracker">https://github.com/cyb3rl00m/safe-disk-cleaner/issues</url>
+  <developer id="io.github.cyb3rl00m">
+    <name>cyb3rl00m</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.0.0" date="2026-10-16"/>
+  </releases>
+</component>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9a9996"/>
+      <stop offset="1" stop-color="#77767b"/>
+    </linearGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6f5f4"/>
+      <stop offset="1" stop-color="#deddda"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#57e389"/>
+      <stop offset="1" stop-color="#26a269"/>
+    </linearGradient>
+  </defs>
+  <!-- drive -->
+  <rect x="12" y="40" width="104" height="56" rx="12" fill="url(#body)"/>
+  <rect x="12" y="32" width="104" height="56" rx="12" fill="url(#top)"/>
+  <rect x="24" y="66" width="44" height="8" rx="4" fill="#c0bfbc"/>
+  <circle cx="96" cy="50" r="4" fill="#62a0ea"/>
+  <!-- usage bar: mostly free -->
+  <rect x="24" y="46" width="56" height="8" rx="4" fill="#c0bfbc"/>
+  <rect x="24" y="46" width="22" height="8" rx="4" fill="#3584e4"/>
+  <!-- shield with check -->
+  <path d="M88 62 L112 70 V86 C112 100 102 108 88 114 C74 108 64 100 64 86 V70 Z" fill="#1b6c46" opacity="0.35" transform="translate(0 3)"/>
+  <path d="M88 62 L112 70 V86 C112 100 102 108 88 114 C74 108 64 100 64 86 V70 Z" fill="url(#shield)"/>
+  <path d="M76 87 L85 96 L101 78" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
