@@ -7,7 +7,6 @@
 **See where your disk space went — and understand what is safe to delete.**
 
 [![Latest release](https://img.shields.io/github/v/release/cyb3rl00m/safe-disk-cleaner?label=release&color=26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
-[![Tests](https://github.com/cyb3rl00m/safe-disk-cleaner/actions/workflows/tests.yml/badge.svg)](https://github.com/cyb3rl00m/safe-disk-cleaner/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
