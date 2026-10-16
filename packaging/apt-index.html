@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safe Disk Cleaner — APT repository</title>
+<style>
+  :root { --bg:#fafafa; --fg:#1e1e1e; --muted:#5e5c64; --card:#fff; --code:#f0f0f2; --accent:#26a269; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#1e1e1e; --fg:#f6f5f4; --muted:#a3a1a8; --card:#2a2a2a; --code:#333; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui, "Cantarell", sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:48px 16px; }
+  h1 { font-size:2rem; margin:0 0 4px; } h2 { margin-top:2rem; font-size:1.2rem; }
+  p.lead { color:var(--muted); margin-top:0; }
+  pre { background:var(--code); padding:14px 16px; border-radius:10px; overflow-x:auto; font-size:14px; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Safe Disk Cleaner</h1>
+  <p class="lead">APT repository for Ubuntu, Debian, Linux Mint, Pop!_OS and other Debian-based distributions.
+     Add it once and the app updates with <code>sudo apt update &amp;&amp; sudo apt upgrade</code>.</p>
+
+  <h2>Add the repository</h2>
+<pre>wget -qO- https://cyb3rl00m.github.io/safe-disk-cleaner/apt/safe-disk-cleaner.gpg \
+  | sudo tee /usr/share/keyrings/safe-disk-cleaner.gpg > /dev/null
+
+sudo tee /etc/apt/sources.list.d/safe-disk-cleaner.sources > /dev/null &lt;&lt;'EOF'
+Types: deb
+URIs: https://cyb3rl00m.github.io/safe-disk-cleaner/apt
+Suites: stable
+Components: main
+Signed-By: /usr/share/keyrings/safe-disk-cleaner.gpg
+EOF
+
+sudo apt update
+sudo apt install safe-disk-cleaner</pre>
+
+  <h2>Remove the repository</h2>
+<pre>sudo rm /etc/apt/sources.list.d/safe-disk-cleaner.sources /usr/share/keyrings/safe-disk-cleaner.gpg
+sudo apt update</pre>
+
+  <p>Source code, screenshots and other installation methods:
+     <a href="https://github.com/cyb3rl00m/safe-disk-cleaner">github.com/cyb3rl00m/safe-disk-cleaner</a></p>
+</main>
+</body>
+</html>

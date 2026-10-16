@@ -19,7 +19,7 @@ elif command -v apt-get >/dev/null; then
 elif command -v dnf >/dev/null; then
     dnf install -y python3 python3-gobject gtk4 libadwaita polkit
 elif command -v pacman >/dev/null; then
-    pacman -S --needed --noconfirm python python-gobject gtk4 libadwaita polkit
+    pacman -S --needed --noconfirm python python-gobject gtk4 libadwaita polkit pacman-contrib
 elif command -v zypper >/dev/null; then
     zypper --non-interactive install python3-gobject typelib-1_0-Gtk-4_0 typelib-1_0-Adw-1 polkit
 else
