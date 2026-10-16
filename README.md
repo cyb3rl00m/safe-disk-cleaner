@@ -11,8 +11,9 @@
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776ab?logo=python&logoColor=white)
+[![Made with Claude](https://img.shields.io/badge/made%20with-Claude-d97757)](#credits)
 
-[Install](#install) · [What it cleans](#what-it-cleans) · [How it keeps your system safe](#how-it-keeps-your-system-safe) · [FAQ](#faq) · [Contributing](CONTRIBUTING.md)
+[Install](#install) · [What it cleans](#what-it-cleans) · [How it keeps your system safe](#how-it-keeps-your-system-safe) · [FAQ](#faq) · [Credits](#credits) · [Contributing](CONTRIBUTING.md)
 
 <br>
 
@@ -214,6 +215,18 @@ where the evidence is.
 Unknown folders are marked *Usually safe* and are never pre-selected. If you know what one is,
 [tell us](../../issues/new?template=cache_folder.yml) and it will get a proper explanation.
 </details>
+
+## Credits
+
+Safe Disk Cleaner is a collaboration between a human developer and an AI assistant.
+
+| | |
+|---|---|
+| **[cyb3rl00m](https://github.com/cyb3rl00m)** — creator & maintainer | Came up with the idea and the goal: a cleaner that *explains* instead of just deleting. Decides what the app does and how it should look and feel, tests every version on real hardware, finds and reports what's broken or confusing, pushed for the safety audit, handles packaging, releases and the community, and keeps the project going. |
+| **[Claude](https://claude.ai)** by Anthropic — AI pair programmer | Wrote most of the code, the root helper and its safety checks, the test suite and drafts of the documentation, following cyb3rl00m's direction and feedback. |
+
+Every version is tested by cyb3rl00m on his own Ubuntu PC before it is released. Being upfront about
+how the app is made matters to us — if you have questions about the code, open an issue.
 
 ## Contributing
 
