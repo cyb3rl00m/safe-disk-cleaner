@@ -7,6 +7,7 @@
 **See where your disk space went — and understand what is safe to delete.**
 
 [![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Tests](https://github.com/cyb3rl00m/safe-disk-cleaner/actions/workflows/tests.yml/badge.svg)](https://github.com/cyb3rl00m/safe-disk-cleaner/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -97,15 +98,19 @@ commands above — future versions will then arrive as normal updates.
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS — single `.deb` file
 
-1. Download `safe-disk-cleaner_x.y.z_all.deb` from the
-   [latest release](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest).
-2. Install it from the folder you saved it to:
+Download and install version 1.0.0 in one go:
 
-   ```bash
-   sudo apt install ./safe-disk-cleaner_*_all.deb
-   ```
+```bash
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.0.0/safe-disk-cleaner_1.0.0_all.deb
+sudo apt install ./safe-disk-cleaner_1.0.0_all.deb
+```
 
-This way you don't get automatic updates — download new versions from the releases page.
+Or download **`safe-disk-cleaner_1.0.0_all.deb`** by hand from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.0.0), open a terminal in
+the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
+
+With this method you don't get automatic updates — download new versions from the
+[releases page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases).
 
 ### Fedora, Arch, openSUSE and others — from source
 

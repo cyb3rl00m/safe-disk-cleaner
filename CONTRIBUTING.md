@@ -60,7 +60,7 @@ Please make sure both pass before opening a pull request.
 ## Building the .deb
 
 ```bash
-bash packaging/build-deb.sh     # → dist/safe-disk-cleaner_<version>_all.deb
+bash packaging/build-deb.sh     # → dist/safe-disk-cleaner_1.0.0_all.deb (version from src/safe_disk_cleaner/__init__.py)
 ```
 
 Publishing a GitHub release builds the `.deb`, attaches it to the release and adds it to the signed
