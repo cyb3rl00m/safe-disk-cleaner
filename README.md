@@ -223,8 +223,8 @@ Safe Disk Cleaner is a collaboration between a human developer and an AI assista
 
 | | |
 |---|---|
-| **[cyb3rl00m](https://github.com/cyb3rl00m)** — creator & maintainer | Came up with the idea and the goal: a cleaner that *explains* instead of just deleting. Decides what the app does and how it should look and feel, tests every version on real hardware, finds and reports what's broken or confusing, pushed for the safety audit, handles packaging, releases and the community, and keeps the project going. |
-| **[Claude](https://claude.ai)** by Anthropic — AI pair programmer | Wrote most of the code, the root helper and its safety checks, the test suite and drafts of the documentation, following cyb3rl00m's direction and feedback. |
+| **[cyb3rl00m](https://github.com/cyb3rl00m)** — creator & maintainer | Came up with the idea and the goal, programmed it alongside Claude in VSCode: a cleaner that *explains* instead of just deleting. Decides what the app does and how it should look and feel, tests every version on real hardware, finds and reports what's broken or confusing, pushed for the safety audit, handles packaging, releases and the community, and keeps the project going. |
+| **[Claude](https://claude.ai)** by Anthropic — AI pair programmer | Helped cyb3rl00m debug the code and performed safety checks, following cyb3rl00m's direction and feedback. |
 
 Every version is tested by cyb3rl00m on his own Ubuntu PC before it is released. Being upfront about
 how the app is made matters to us — if you have questions about the code, open an issue.
