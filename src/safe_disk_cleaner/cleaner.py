@@ -15,9 +15,23 @@ from .cache_info import KNOWN_CACHES
 from .model import Category, Item
 from .util import disk_usage, running_flatpaks, running_process_names, running_snaps, total_free_bytes, which
 
-INSTALLED_HELPER = "/usr/libexec/safe-disk-cleaner-helper"
 DEV_HELPER = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "helper",
                                            "safe-disk-cleaner-helper"))
+
+
+def installed_helper(module_file: str = __file__) -> str | None:
+    """The helper that belongs to this installation.
+
+    The code lives in <prefix>/lib/safe-disk-cleaner/safe_disk_cleaner/ and the helper in
+    <prefix>/libexec/ (prefix /usr for the .deb, /usr/local for install.sh).
+    """
+    package_dir = os.path.dirname(os.path.realpath(module_file))
+    lib_dir = os.path.dirname(package_dir)
+    if os.path.basename(lib_dir) != "safe-disk-cleaner":
+        return None
+    prefix = os.path.dirname(os.path.dirname(lib_dir))
+    helper = os.path.join(prefix, "libexec", "safe-disk-cleaner-helper")
+    return helper if os.path.exists(helper) else None
 
 
 @dataclass
@@ -139,8 +153,9 @@ def helper_command() -> list[str] | None:
     pkexec = which("pkexec")
     if not pkexec:
         return None
-    if os.path.exists(INSTALLED_HELPER):
-        return [pkexec, INSTALLED_HELPER]
+    helper = installed_helper()
+    if helper:
+        return [pkexec, helper]
     if os.path.exists(DEV_HELPER):
         return [pkexec, "/usr/bin/python3", "-I", DEV_HELPER]
     return None

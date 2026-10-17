@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.1 — 2026-10-17
+
+Thanks to @fastrizwaan for reporting both of these ([#1](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/1)).
+
+- **Back button:** a "←" button in the header returns from a category to the Overview.
+  Alt+← and the mouse's back button work too.
+- **`install.sh` now installs into `/usr/local`** instead of `/usr`, which belongs to the package
+  manager. An existing install in `/usr` from version 1.0.0 is moved automatically. Choose another
+  place with `sudo PREFIX=… bash install.sh`. `uninstall.sh` cleans up both locations.
+- `install.sh` refuses to run when the `.deb` is installed, so the two can't get mixed up.
+- The `.deb` package still installs into `/usr`, as packages should.
+
 ## 1.0.0 — 2026-10-16
 
 First release.

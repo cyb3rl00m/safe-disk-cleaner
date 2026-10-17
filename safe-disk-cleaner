@@ -1,10 +1,15 @@
 #!/usr/bin/python3
-"""Launcher. Works both from the source folder and when installed."""
+"""Launcher. Works from the source folder and when installed (/usr via .deb, /usr/local via install.sh)."""
 import os
 import sys
 
 HERE = os.path.dirname(os.path.realpath(__file__))
-for candidate in (os.path.join(HERE, "src"), "/usr/lib/safe-disk-cleaner"):
+CANDIDATES = [os.path.join(HERE, "src")]                      # source folder
+if os.path.basename(HERE) == "bin":                           # <prefix>/bin → <prefix>/lib/safe-disk-cleaner
+    CANDIDATES.append(os.path.join(os.path.dirname(HERE), "lib", "safe-disk-cleaner"))
+CANDIDATES.append("/usr/lib/safe-disk-cleaner")
+
+for candidate in CANDIDATES:
     if os.path.isdir(os.path.join(candidate, "safe_disk_cleaner")):
         sys.path.insert(0, candidate)
         break

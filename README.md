@@ -6,7 +6,7 @@
 
 **See where your disk space went — and understand what is safe to delete.**
 
-[![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Release v1.0.1](https://img.shields.io/badge/release-v1.0.1-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -73,15 +73,15 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS — `.deb` package (recommended)
 
-Download and install version 1.0.0:
+Download and install version 1.0.1:
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.0.0/safe-disk-cleaner_1.0.0_all.deb
-sudo apt install ./safe-disk-cleaner_1.0.0_all.deb
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.0.1/safe-disk-cleaner_1.0.1_all.deb
+sudo apt install ./safe-disk-cleaner_1.0.1_all.deb
 ```
 
-Or download **`safe-disk-cleaner_1.0.0_all.deb`** by hand from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.0.0), open a terminal in
+Or download **`safe-disk-cleaner_1.0.1_all.deb`** by hand from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.0.1), open a terminal in
 the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
 
 Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
@@ -100,7 +100,8 @@ sudo bash install.sh
 ```
 
 `install.sh` installs the dependencies with your package manager (APT, DNF, pacman or zypper) and
-copies the app into place.
+copies the app into `/usr/local` — the place for software that doesn't come from your package manager.
+(Want it somewhere else? `sudo PREFIX=/opt/safe-disk-cleaner bash install.sh`)
 On Arch it also installs `pacman-contrib`, which provides `paccache` for safely cleaning the package
 cache while keeping the two newest versions of each package for downgrades.
 
@@ -222,8 +223,8 @@ Safe Disk Cleaner is a collaboration between a human developer and an AI assista
 
 | | |
 |---|---|
-| **[cyb3rl00m](https://github.com/cyb3rl00m)** — creator & maintainer | I came up with the idea and the goal: a cleaner that *explains* instead of just deleting. Decides what the app does and how it should look and feel, tests every version on real hardware, finds and reports what's broken or confusing, pushed for the safety audit, handles packaging, releases and the community, programmed it in vscode, and i keep the project going. |
-| **[Claude](https://claude.ai)** by Anthropic — AI pair programmer | Wrote the code alongside me, provided safety checks, following  me cyb3rl00m's direction and feedback. |
+| **[cyb3rl00m](https://github.com/cyb3rl00m)** — creator & maintainer | Came up with the idea and the goal: a cleaner that *explains* instead of just deleting. Decides what the app does and how it should look and feel, tests every version on real hardware, finds and reports what's broken or confusing, pushed for the safety audit, handles packaging, releases and the community, and keeps the project going. |
+| **[Claude](https://claude.ai)** by Anthropic — AI pair programmer | Wrote most of the code, the root helper and its safety checks, the test suite and drafts of the documentation, following cyb3rl00m's direction and feedback. |
 
 Every version is tested by cyb3rl00m on his own Ubuntu PC before it is released. Being upfront about
 how the app is made matters to us — if you have questions about the code, open an issue.

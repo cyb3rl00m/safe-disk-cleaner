@@ -151,12 +151,25 @@ class MainWindow(Adw.ApplicationWindow):
 
         # ---- content -------------------------------------------------------
         self.content_view = Adw.ToolbarView()
-        self.content_view.add_top_bar(Adw.HeaderBar())
+        content_header = Adw.HeaderBar()
+        self.back_button = Gtk.Button(icon_name="go-previous-symbolic", tooltip_text="Back to Overview (Alt+←)",
+                                      visible=False)
+        self.back_button.connect("clicked", lambda *_: self.go_back())
+        content_header.pack_start(self.back_button)
+        self.content_view.add_top_bar(content_header)
         self.content_page = Adw.NavigationPage(title="Overview", tag="content", child=self.content_view)
 
         self.split = Adw.NavigationSplitView(sidebar=sidebar_page, content=self.content_page)
         self.split.set_min_sidebar_width(270)
         self.split.set_max_sidebar_width(340)
+        # In the narrow (collapsed) layout libadwaita shows its own back arrow to the sidebar,
+        # so ours is only shown in the wide layout.
+        self.split.connect("notify::collapsed", lambda *_: self._update_back_button())
+
+        # The "back" mouse button (button 8) also returns to the Overview.
+        back_click = Gtk.GestureClick(button=8)
+        back_click.connect("pressed", lambda *_: self.go_back())
+        self.add_controller(back_click)
 
         # ---- bottom bar ----------------------------------------------------
         action_bar = Gtk.ActionBar()
@@ -378,6 +391,14 @@ class MainWindow(Adw.ApplicationWindow):
             self.content_page.set_title(title)
             widget = self._build_category(cat) if cat else self._build_scanning(title)
         self.content_view.set_content(widget)
+        self._update_back_button()
+
+    def _update_back_button(self) -> None:
+        self.back_button.set_visible(self.current != "overview" and not self.split.get_collapsed())
+
+    def go_back(self) -> None:
+        if self.current != "overview":
+            self.show_page("overview")
 
     def _page(self) -> tuple[Gtk.ScrolledWindow, Gtk.Box]:
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=18, margin_top=24, margin_bottom=32,
@@ -843,6 +864,7 @@ class Application(Adw.Application):
         self._add_action("about", self.on_about)
         self._add_action("quit", lambda *_: self.quit(), ["<Control>q"])
         self._add_action("rescan", lambda *_: self.window and self.window.start_scan(), ["<Control>r"])
+        self._add_action("back", lambda *_: self.window and self.window.go_back(), ["<Alt>Left"])
 
     def _add_action(self, name: str, callback, accels: list[str] | None = None) -> None:
         action = Gio.SimpleAction.new(name, None)

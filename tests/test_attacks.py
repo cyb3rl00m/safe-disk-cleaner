@@ -247,6 +247,21 @@ class FlatpakCheckRunsAsUser(unittest.TestCase):
                                         "runtime/org.gnome.Platform/x86_64/46"])
 
 
+class InstallLayout(unittest.TestCase):
+    def test_helper_is_found_next_to_the_installation(self):
+        for prefix in ("usr", "usr/local"):
+            with tempfile.TemporaryDirectory() as root:
+                pkg = os.path.join(root, prefix, "lib", "safe-disk-cleaner", "safe_disk_cleaner")
+                os.makedirs(pkg)
+                helper = os.path.join(root, prefix, "libexec", "safe-disk-cleaner-helper")
+                os.makedirs(os.path.dirname(helper))
+                open(helper, "w").close()
+                self.assertEqual(cleaner.installed_helper(os.path.join(pkg, "cleaner.py")), helper)
+
+    def test_source_folder_has_no_installed_helper(self):
+        self.assertIsNone(cleaner.installed_helper(cleaner.__file__))
+
+
 class HomeDeletion(unittest.TestCase):
     def test_cleaner_never_leaves_its_folder(self):
         with tempfile.TemporaryDirectory() as home:
