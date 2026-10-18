@@ -1,0 +1,62 @@
+#!/bin/sh
+# Safe Disk Cleaner — AppImage entry point.
+# This is a lightweight AppImage: it uses the system's Python 3, GTK 4 and libadwaita,
+# which GNOME desktops already have. If they are missing we say exactly what to install.
+
+HERE="$(dirname "$(readlink -f "$0")")"
+export APPDIR="${APPDIR:-$HERE}"
+APP="$HERE/usr/bin/safe-disk-cleaner"
+
+PYTHON=""
+for p in /usr/bin/python3 /usr/local/bin/python3 "$(command -v python3 2>/dev/null)"; do
+    if [ -n "$p" ] && [ -x "$p" ]; then PYTHON="$p"; break; fi
+done
+
+# The terminal report works without GTK.
+case " $* " in
+    *" --report "*|*" --version "*|*" --help "*|*" -h "*)
+        [ -n "$PYTHON" ] && exec "$PYTHON" "$APP" "$@"
+        echo "Safe Disk Cleaner needs Python 3." >&2; exit 1 ;;
+esac
+
+missing_message() {
+    . /etc/os-release 2>/dev/null
+    case " ${ID:-} ${ID_LIKE:-} " in
+        *" ubuntu "*|*" debian "*)
+            cmd="sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 pkexec" ;;
+        *" fedora "*|*" rhel "*)
+            cmd="sudo dnf install python3-gobject gtk4 libadwaita polkit" ;;
+        *" arch "*)
+            cmd="sudo pacman -S --needed python-gobject gtk4 libadwaita polkit pacman-contrib" ;;
+        *" opensuse"*|*" suse "*)
+            cmd="sudo zypper install python3-gobject typelib-1_0-Gtk-4_0 typelib-1_0-Adw-1 polkit" ;;
+        *)
+            cmd="Install: Python 3, PyGObject, GTK 4, libadwaita 1.4 or newer, and polkit (pkexec)" ;;
+    esac
+    printf '%s\n\n%s\n\n%s\n' \
+        "Safe Disk Cleaner needs GTK 4, libadwaita (1.4 or newer) and their Python bindings." \
+        "Open a terminal, run this command, then start the app again:" \
+        "$cmd"
+}
+
+check='import gi
+gi.require_version("Gtk", "4.0"); gi.require_version("Adw", "1")
+from gi.repository import Adw
+raise SystemExit(0 if Adw.get_minor_version() >= 4 else 1)'
+
+if [ -z "$PYTHON" ] || ! "$PYTHON" -c "$check" >/dev/null 2>&1; then
+    msg="$(missing_message)"
+    echo "$msg" >&2
+    if [ ! -t 2 ]; then   # started from the app menu / file manager: show a window
+        if command -v zenity >/dev/null 2>&1; then
+            zenity --error --title="Safe Disk Cleaner" --width=520 --text="$msg" 2>/dev/null
+        elif command -v kdialog >/dev/null 2>&1; then
+            kdialog --title "Safe Disk Cleaner" --error "$msg" 2>/dev/null
+        elif command -v notify-send >/dev/null 2>&1; then
+            notify-send "Safe Disk Cleaner can't start" "$msg"
+        fi
+    fi
+    exit 1
+fi
+
+exec "$PYTHON" "$APP" "$@"

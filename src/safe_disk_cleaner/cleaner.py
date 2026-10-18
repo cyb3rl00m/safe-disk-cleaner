@@ -7,6 +7,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass, field
 from typing import Callable
 
@@ -149,24 +150,82 @@ def safe_remove(path: str, base: str) -> int:
     return size
 
 
-def helper_command() -> list[str] | None:
+def _system_python() -> str:
+    return "/usr/bin/python3" if os.path.exists("/usr/bin/python3") else os.path.realpath(sys.executable)
+
+
+def inside_appimage(path: str) -> bool:
+    """True if `path` lives inside the mounted AppImage this process runs from."""
+    appdir = os.environ.get("APPDIR")
+    if not (os.environ.get("APPIMAGE") and appdir):
+        return False
+    return os.path.realpath(path).startswith(os.path.realpath(appdir) + os.sep)
+
+
+def stage_helper(helper: str, package_dir: str | None = None) -> str:
+    """Copy the root helper and its code out of the AppImage.
+
+    An AppImage is mounted with FUSE, and FUSE mounts can only be read by the user who
+    mounted them — not even root can look inside. So the helper is copied to a private
+    temporary folder (mode 700) that root can read, using the same layout as an install:
+    <stage>/libexec/safe-disk-cleaner-helper and <stage>/lib/safe-disk-cleaner/safe_disk_cleaner/.
+    Returns the folder; the caller deletes it afterwards.
+    """
+    package_dir = package_dir or os.path.dirname(os.path.realpath(__file__))
+    stage = tempfile.mkdtemp(prefix="safe-disk-cleaner-")
+    os.mkdir(os.path.join(stage, "libexec"))
+    shutil.copy2(helper, os.path.join(stage, "libexec", "safe-disk-cleaner-helper"))
+    shutil.copytree(package_dir, os.path.join(stage, "lib", "safe-disk-cleaner", "safe_disk_cleaner"),
+                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc"), copy_function=shutil.copyfile)
+    # Don't inherit read-only modes from the AppImage, or the folder couldn't be deleted afterwards.
+    for root, dirs, files in os.walk(stage):
+        os.chmod(root, 0o700)
+        for name in files:
+            os.chmod(os.path.join(root, name), 0o600)
+    os.chmod(os.path.join(stage, "libexec", "safe-disk-cleaner-helper"), 0o700)
+    return stage
+
+
+def prepare_helper() -> tuple[list[str], str | None] | None:
+    """The command that starts the root helper, plus a temporary folder to delete afterwards."""
     pkexec = which("pkexec")
     if not pkexec:
         return None
     helper = installed_helper()
+    if helper and inside_appimage(helper):
+        stage = stage_helper(helper)
+        staged = os.path.join(stage, "libexec", "safe-disk-cleaner-helper")
+        # -B: root must not write .pyc files into the user's folder (the user couldn't delete them)
+        return [pkexec, _system_python(), "-I", "-B", staged], stage
     if helper:
-        return [pkexec, helper]
+        return [pkexec, helper], None
     if os.path.exists(DEV_HELPER):
-        return [pkexec, "/usr/bin/python3", "-I", DEV_HELPER]
+        return [pkexec, _system_python(), "-I", "-B", DEV_HELPER], None
     return None
+
+
+def helper_command() -> list[str] | None:
+    prepared = prepare_helper()
+    if prepared and prepared[1]:
+        shutil.rmtree(prepared[1], ignore_errors=True)
+    return prepared[0] if prepared else None
 
 
 def run_root_ops(ops: list[dict], log: Log) -> tuple[int, list[str]]:
     """Run privileged operations in ONE pkexec call. Returns (failures, errors)."""
-    cmd = helper_command()
-    if cmd is None:
+    prepared = prepare_helper()
+    if prepared is None:
         return len(ops), ["pkexec (package “pkexec” or “polkit”) is not installed, so administrator tasks "
                           "can't run."]
+    cmd, stage = prepared
+    try:
+        return _run_helper(cmd, ops, log)
+    finally:
+        if stage:
+            shutil.rmtree(stage, ignore_errors=True)
+
+
+def _run_helper(cmd: list[str], ops: list[dict], log: Log) -> tuple[int, list[str]]:
     log("Asking for your password…")
     try:
         proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,

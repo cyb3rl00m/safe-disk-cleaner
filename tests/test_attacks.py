@@ -8,6 +8,7 @@ import io
 import json
 import os
 import random
+import shutil
 import string
 import sys
 import tempfile
@@ -260,6 +261,66 @@ class InstallLayout(unittest.TestCase):
 
     def test_source_folder_has_no_installed_helper(self):
         self.assertIsNone(cleaner.installed_helper(cleaner.__file__))
+
+
+class AppImageStaging(unittest.TestCase):
+    """Inside an AppImage the helper is copied out of the (root-unreadable) FUSE mount."""
+
+    def test_stage_layout_permissions_and_cleanup(self):
+        src = os.path.join(os.path.dirname(__file__), "..", "src", "safe_disk_cleaner")
+        helper_src = os.path.join(os.path.dirname(__file__), "..", "helper", "safe-disk-cleaner-helper")
+        with tempfile.TemporaryDirectory() as ro:
+            # simulate a read-only AppImage mount
+            pkg = os.path.join(ro, "safe_disk_cleaner")
+            shutil.copytree(src, pkg, ignore=shutil.ignore_patterns("__pycache__"))
+            helper = os.path.join(ro, "safe-disk-cleaner-helper")
+            shutil.copy(helper_src, helper)
+            for root, dirs, files in os.walk(ro):
+                for n in files:
+                    os.chmod(os.path.join(root, n), 0o444)
+            os.chmod(pkg, 0o555)
+            stage = cleaner.stage_helper(helper, pkg)
+            try:
+                self.assertEqual(os.stat(stage).st_mode & 0o777, 0o700)
+                staged = os.path.join(stage, "libexec", "safe-disk-cleaner-helper")
+                self.assertTrue(os.access(staged, os.X_OK))
+                self.assertTrue(os.path.isfile(os.path.join(stage, "lib", "safe-disk-cleaner",
+                                                            "safe_disk_cleaner", "helper.py")))
+                for root, dirs, files in os.walk(stage):
+                    self.assertTrue(os.access(root, os.W_OK), root)
+            finally:
+                os.chmod(pkg, 0o755)
+                shutil.rmtree(stage)
+            self.assertFalse(os.path.exists(stage))
+
+    def test_inside_appimage_detection(self):
+        with mock.patch.dict(os.environ, {"APPIMAGE": "/home/u/x.AppImage", "APPDIR": "/tmp/.mount_abc"}):
+            self.assertTrue(cleaner.inside_appimage("/tmp/.mount_abc/usr/libexec/safe-disk-cleaner-helper"))
+            self.assertFalse(cleaner.inside_appimage("/usr/libexec/safe-disk-cleaner-helper"))
+            self.assertFalse(cleaner.inside_appimage("/tmp/.mount_abcdef/usr/libexec/x"))
+        with mock.patch.dict(os.environ, {}, clear=True):
+            self.assertFalse(cleaner.inside_appimage("/tmp/.mount_abc/usr/libexec/x"))
+
+    def test_prepare_helper_stages_and_uses_no_bytecode(self):
+        with tempfile.TemporaryDirectory() as appdir:
+            pkg = os.path.join(appdir, "usr", "lib", "safe-disk-cleaner", "safe_disk_cleaner")
+            src = os.path.join(os.path.dirname(__file__), "..", "src", "safe_disk_cleaner")
+            shutil.copytree(src, pkg, ignore=shutil.ignore_patterns("__pycache__"))
+            helper = os.path.join(appdir, "usr", "libexec", "safe-disk-cleaner-helper")
+            os.makedirs(os.path.dirname(helper))
+            open(helper, "w").close()
+            with mock.patch.dict(os.environ, {"APPIMAGE": "/x.AppImage", "APPDIR": appdir}), \
+                 mock.patch.object(cleaner, "which", return_value="/usr/bin/pkexec"), \
+                 mock.patch.object(cleaner, "installed_helper", return_value=helper), \
+                 mock.patch.object(cleaner, "__file__", os.path.join(pkg, "cleaner.py")):
+                cmd, stage = cleaner.prepare_helper()
+            try:
+                self.assertEqual(cmd[0], "/usr/bin/pkexec")
+                self.assertIn("-B", cmd)
+                self.assertTrue(cmd[-1].startswith(stage))
+                self.assertFalse(cmd[-1].startswith(appdir))
+            finally:
+                shutil.rmtree(stage)
 
 
 class HomeDeletion(unittest.TestCase):

@@ -6,7 +6,7 @@
 
 **See where your disk space went — and understand what is safe to delete.**
 
-[![Release v1.0.1](https://img.shields.io/badge/release-v1.0.1-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Release v1.1.0](https://img.shields.io/badge/release-v1.1.0-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -73,15 +73,15 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS — `.deb` package (recommended)
 
-Download and install version 1.0.1:
+Download and install version 1.1.0:
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.0.1/safe-disk-cleaner_1.0.1_all.deb
-sudo apt install ./safe-disk-cleaner_1.0.1_all.deb
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.0/safe-disk-cleaner_1.1.0_all.deb
+sudo apt install ./safe-disk-cleaner_1.1.0_all.deb
 ```
 
-Or download **`safe-disk-cleaner_1.0.1_all.deb`** by hand from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.0.1), open a terminal in
+Or download **`safe-disk-cleaner_1.1.0_all.deb`** by hand from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.0), open a terminal in
 the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
 
 Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
@@ -91,7 +91,29 @@ libadwaita, Python bindings and pkexec) automatically.
 [releases page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases) and install it the same way —
 it replaces the old version.
 
-### Fedora, Arch, openSUSE and others — from source
+### Any distribution — AppImage
+
+One file, no installation. Download it, make it executable and run it:
+
+```bash
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.0/Safe_Disk_Cleaner-1.1.0-x86_64.AppImage
+chmod +x Safe_Disk_Cleaner-1.1.0-x86_64.AppImage
+./Safe_Disk_Cleaner-1.1.0-x86_64.AppImage
+```
+
+Prefer the mouse? Download **`Safe_Disk_Cleaner-1.1.0-x86_64.AppImage`** from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.0), right-click it →
+**Properties** → turn on **Executable as Program**, then double-click it.
+
+- **What it needs:** Python 3, GTK 4, libadwaita 1.4+ and polkit — already installed on most GNOME
+  desktops (Ubuntu, Fedora Workstation, …). If something is missing, the app tells you the one command
+  to install it.
+- **Updates:** AppImage managers such as [Gear Lever](https://flathub.org/apps/it.mijorus.gearlever)
+  find new versions automatically.
+- **Removing it:** just delete the file.
+- **64-bit PCs (x86_64) only** for now.
+
+### Any distribution — from source
 
 ```bash
 git clone https://github.com/cyb3rl00m/safe-disk-cleaner.git
@@ -121,6 +143,8 @@ sudo apt remove safe-disk-cleaner     # if you installed the .deb
 sudo bash uninstall.sh                # if you used install.sh
 ```
 
+Using the AppImage? Just delete the `.AppImage` file.
+
 ## How to use it
 
 1. **Tick** what you want to remove — a whole category on the Overview, or single items inside it.
@@ -146,6 +170,11 @@ trust the app** — it re-checks everything against the system's current state b
 | Every value (journal sizes, package names, refs…) is checked against a whitelist | Garbage input is refused |
 
 In your home folder, deletions stay inside the folder each item belongs to and never follow symlinks.
+
+**AppImage note:** root can't read inside a running AppImage, so before the password prompt the AppImage
+copies its helper to a private temporary folder (only you can access it) and deletes it afterwards. The
+`.deb` and `install.sh` keep the helper in a protected system folder instead, which is a little more
+locked down — prefer those if you can.
 
 The test suite includes **attack tests** that fuzz the root helper with thousands of hostile requests
 (`/etc/passwd`, `../` tricks, symlinks, fake package names) and check that nothing outside the
@@ -194,6 +223,14 @@ Trash.
 
 Kernels, package caches, Snap versions and system logs belong to the system. Removing them needs
 administrator rights. The app asks once per clean, through the normal system password prompt.
+</details>
+
+<details>
+<summary><b>The AppImage's password prompt mentions "/usr/bin/python3". Is that right?</b></summary>
+
+Yes. An AppImage can't install the system file that gives the prompt Safe Disk Cleaner's own wording, so
+your system shows a generic message about running Python as the administrator — that is the app's
+cleaning helper. The `.deb` shows the app's own message instead.
 </details>
 
 <details>

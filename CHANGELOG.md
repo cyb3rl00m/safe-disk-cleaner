@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 — 2026-10-18
+
+- **AppImage:** a single ~1 MB file that runs on any distribution with GTK 4 and libadwaita —
+  no installation needed. AppImage managers (Gear Lever, AppImageUpdate) can update it automatically.
+- If GTK 4 or libadwaita are missing, the AppImage shows a window with the exact install command
+  for your distribution instead of failing silently.
+- The root helper no longer writes `.pyc` files when run from the source folder.
+
 ## 1.0.1 — 2026-10-17
 
 Thanks to @fastrizwaan for reporting both of these ([#1](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/1)).

@@ -57,10 +57,13 @@ Please make sure both pass before opening a pull request.
 2. re-check the system's current state instead of trusting what the app sends,
 3. come with a test that tries to misuse the new code.
 
-## Building the .deb
+## Building the .deb and the AppImage
 
 ```bash
-bash packaging/build-deb.sh     # → dist/safe-disk-cleaner_1.0.0_all.deb (version from src/safe_disk_cleaner/__init__.py)
+bash packaging/build-deb.sh       # → dist/safe-disk-cleaner_<version>_all.deb
+bash packaging/build-appimage.sh  # → dist/Safe_Disk_Cleaner-<version>-x86_64.AppImage (+ .zsync)
 ```
 
-Publishing a GitHub release builds the `.deb` and attaches it to the release automatically.
+The version comes from `src/safe_disk_cleaner/__init__.py`.
+
+Publishing a GitHub release builds both and attaches them to the release automatically.
