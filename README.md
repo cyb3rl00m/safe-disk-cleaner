@@ -6,7 +6,7 @@
 
 **See where your disk space went — and understand what is safe to delete.**
 
-[![Release v1.1.0](https://img.shields.io/badge/release-v1.1.0-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Release v1.1.1](https://img.shields.io/badge/release-v1.1.1-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -73,15 +73,15 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS — `.deb` package (recommended)
 
-Download and install version 1.1.0:
+Download and install version 1.1.1:
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.0/safe-disk-cleaner_1.1.0_all.deb
-sudo apt install ./safe-disk-cleaner_1.1.0_all.deb
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.1/safe-disk-cleaner_1.1.1_all.deb
+sudo apt install ./safe-disk-cleaner_1.1.1_all.deb
 ```
 
-Or download **`safe-disk-cleaner_1.1.0_all.deb`** by hand from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.0), open a terminal in
+Or download **`safe-disk-cleaner_1.1.1_all.deb`** by hand from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.1), open a terminal in
 the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
 
 Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
@@ -96,13 +96,13 @@ it replaces the old version.
 One file, no installation. Download it, make it executable and run it:
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.0/Safe_Disk_Cleaner-1.1.0-x86_64.AppImage
-chmod +x Safe_Disk_Cleaner-1.1.0-x86_64.AppImage
-./Safe_Disk_Cleaner-1.1.0-x86_64.AppImage
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.1/Safe_Disk_Cleaner-1.1.1-x86_64.AppImage
+chmod +x Safe_Disk_Cleaner-1.1.1-x86_64.AppImage
+./Safe_Disk_Cleaner-1.1.1-x86_64.AppImage
 ```
 
-Prefer the mouse? Download **`Safe_Disk_Cleaner-1.1.0-x86_64.AppImage`** from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.0), right-click it →
+Prefer the mouse? Download **`Safe_Disk_Cleaner-1.1.1-x86_64.AppImage`** from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.1), right-click it →
 **Properties** → turn on **Executable as Program**, then double-click it.
 
 - **What it needs:** Python 3, GTK 4, libadwaita 1.4+ and polkit — already installed on most GNOME

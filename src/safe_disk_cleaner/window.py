@@ -51,6 +51,29 @@ def risk_badge(risk: Risk) -> Gtk.Label:
     return label
 
 
+def plain_row(title: str, subtitle: str = "", **props) -> Adw.ActionRow:
+    """An ActionRow that shows its text literally.
+
+    ActionRow titles are Pango markup by default, so a title such as "Flatpak & Snap app caches"
+    or a trashed file called "Tom & Jerry.mp4" would be rejected as broken markup and not shown.
+    Markup must be switched off *before* any text is set.
+    """
+    row = Adw.ActionRow(**props)
+    row.set_use_markup(False)
+    row.set_title(title)
+    if subtitle:
+        row.set_subtitle(subtitle)
+    return row
+
+
+def plain_toast(text: str, timeout: int = 5) -> Adw.Toast:
+    """A toast that shows its text literally (toast titles are markup by default, too)."""
+    toast = Adw.Toast(timeout=timeout)
+    toast.set_use_markup(False)
+    toast.set_title(text)
+    return toast
+
+
 def wrap_label(text: str, *classes: str, selectable: bool = False) -> Gtk.Label:
     label = Gtk.Label(label=text, wrap=True, xalign=0, selectable=selectable)
     for c in classes:
@@ -472,9 +495,7 @@ class MainWindow(Adw.ApplicationWindow):
                             "what it is, and choose single items.")
             biggest = ranked[0].total or 1
             for cat in ranked:
-                row = Adw.ActionRow(title=cat.title, activatable=True,
-                                    tooltip_text=f"Open “{cat.title}”")
-                row.set_use_markup(False)
+                row = plain_row(cat.title, activatable=True, tooltip_text=f"Open “{cat.title}”")
                 check = Gtk.CheckButton(valign=Gtk.Align.CENTER,
                                         tooltip_text="Tick to clean this whole category")
                 check.connect("toggled", lambda b, c=cat: self._toggle_category(c, b))
@@ -501,9 +522,8 @@ class MainWindow(Adw.ApplicationWindow):
             for fs in self.disks:
                 name = {"/": "System ( / )", "/home": "Home ( /home )", "/boot": "Boot ( /boot )",
                         "/boot/efi": "EFI ( /boot/efi )"}.get(fs.mountpoint, fs.mountpoint)
-                row = Adw.ActionRow(title=name, subtitle=f"{human_size(fs.used)} used of {human_size(fs.total)}"
-                                                         f" · {human_size(fs.free)} free")
-                row.set_use_markup(False)
+                row = plain_row(name, f"{human_size(fs.used)} used of {human_size(fs.total)}"
+                                      f" · {human_size(fs.free)} free")
                 bar = Gtk.LevelBar(min_value=0, max_value=1, value=min(1.0, fs.fraction),
                                    valign=Gtk.Align.CENTER, width_request=160)
                 bar.add_css_class("disk")
@@ -541,8 +561,7 @@ class MainWindow(Adw.ApplicationWindow):
 
         legend = Adw.PreferencesGroup(title="What the labels mean")
         for risk in Risk:
-            row = Adw.ActionRow(title=risk.label, subtitle=risk.meaning)
-            row.set_use_markup(False)
+            row = plain_row(risk.label, risk.meaning)
             row.add_prefix(self._dot(risk))
             legend.add(row)
         box.append(legend)
@@ -662,8 +681,7 @@ class MainWindow(Adw.ApplicationWindow):
         subtitle = item.subtitle
         if item.note:
             subtitle = (subtitle + "\n" if subtitle else "") + "⚠ " + item.note
-        row = Adw.ActionRow(title=item.title, subtitle=subtitle)
-        row.set_use_markup(False)
+        row = plain_row(item.title, subtitle)
         check = Gtk.CheckButton(valign=Gtk.Align.CENTER, active=bool(self.selected.get(key)))
         check.set_sensitive(not item.blocked)
         check.connect("toggled", lambda b: self.set_selected(key, b.get_active()))
@@ -695,8 +713,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.show_page(cat.id)
 
     def _setting_row(self, cat: Category, setting: Setting) -> Gtk.Widget:
-        row = Adw.ActionRow(title=setting.title, subtitle=setting.subtitle)
-        row.set_use_markup(False)
+        row = plain_row(setting.title, setting.subtitle)
         labels = [label for label, _v in setting.choices]
         values = [v for _l, v in setting.choices]
         dropdown = Gtk.DropDown.new_from_strings(labels)
@@ -720,10 +737,9 @@ class MainWindow(Adw.ApplicationWindow):
 
         def done(failures, errors):
             if failures:
-                self.toasts.add_toast(Adw.Toast(title=errors[0] if errors else "Could not change the setting",
-                                                timeout=8))
+                self.toasts.add_toast(plain_toast(errors[0] if errors else "Could not change the setting", 8))
             else:
-                self.toasts.add_toast(Adw.Toast(title=f"Saved: {setting.title.lower()} → {value}"))
+                self.toasts.add_toast(plain_toast(f"Saved: {setting.title.lower()} → {value}"))
                 self.rescan_category(cat.id)
             return False
 
@@ -894,9 +910,8 @@ class Application(Adw.Application):
         if self.window is None:
             self.window = MainWindow(self)
             if os.geteuid() == 0:
-                self.window.toasts.add_toast(Adw.Toast(
-                    title="Don't run this app as root — it would clean root's files instead of yours.",
-                    timeout=0))
+                self.window.toasts.add_toast(plain_toast(
+                    "Don't run this app as root — it would clean root's files instead of yours.", 0))
         self.window.present()
 
     def on_about(self, *_args) -> None:

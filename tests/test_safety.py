@@ -382,3 +382,24 @@ class UserCache(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MarkupSafety(unittest.TestCase):
+    """Issue #3: libadwaita rows and toasts treat their text as Pango markup by default, so a title
+    with "&" (e.g. "Flatpak & Snap app caches", or a trashed file "Tom & Jerry.mp4") was rejected and
+    not shown. All rows and toasts must be created through plain_row() / plain_toast(), which switch
+    markup off before setting any text."""
+
+    def test_rows_and_toasts_only_built_through_safe_helpers(self):
+        import re
+        path = os.path.join(os.path.dirname(__file__), "..", "src", "safe_disk_cleaner", "window.py")
+        source = open(path, encoding="utf-8").read()
+        helpers = source[source.index("def plain_row("):source.index("def wrap_label(")]
+        rest = source.replace(helpers, "")
+        self.assertEqual(re.findall(r"Adw\.(?:ActionRow|Toast)\(", rest), [],
+                         "create rows with plain_row() and toasts with plain_toast()")
+        self.assertNotIn("title=", re.sub(r"\s+", " ", helpers.split("row = Adw.ActionRow(")[1].split(")")[0]))
+
+    def test_some_category_titles_really_contain_ampersands(self):
+        titles = [t for _s, t, _i, _f in scanners.SCANNERS]
+        self.assertTrue(any("&" in t for t in titles))

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.1 — 2026-10-19
+
+Thanks to @dmaglio for the precise report and analysis ([#3](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/3)).
+
+- **Fixed:** titles containing `&` — "Crash reports & core dumps", "Flatpak & Snap app caches" — were
+  rejected as broken markup and not shown, with a GTK warning in the terminal. The same could happen
+  to items with `&` or `<` in their name, such as a file in the Trash called "Tom & Jerry.mp4", and to
+  error messages in notifications. All rows and notifications now show their text literally.
+- A test makes sure every row and notification is created the safe way from now on.
+
 ## 1.1.0 — 2026-10-18
 
 - **AppImage:** a single ~1 MB file that runs on any distribution with GTK 4 and libadwaita —
