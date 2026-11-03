@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.2 — 2026-11-03
+
+Thanks to @Kayxue for the report ([#7](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/7)).
+
+- **Fixed: unused Flatpak runtimes installed system-wide could not be removed** ("Flatpak could not list
+  unused runtimes"), on every distribution. Before removing anything, the app asks Flatpak again which
+  runtimes are unused. Flatpak answers that question with exit code 1 whenever there *is* something
+  unused, and the app wrongly treated that as an error. Real errors are still refused, now with
+  Flatpak's own message.
+- **pacman (Arch):** when pacman's safety dry run fails, the message now includes pacman's own reason
+  instead of an empty "pacman would remove more than selected:". Packages are still never removed
+  unless the dry run succeeds and matches your selection exactly.
+- **ARM:** the AppImage is now also built for 64-bit ARM (`aarch64`) — thanks to @steals
+  ([#4](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/4)).
+- Tests now use Flatpak's real exit codes and pacman's real error output.
+
 ## 1.1.1 — 2026-10-19
 
 Thanks to @dmaglio for the precise report and analysis ([#3](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/3)).

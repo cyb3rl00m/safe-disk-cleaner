@@ -248,6 +248,79 @@ class FlatpakCheckRunsAsUser(unittest.TestCase):
                                         "runtime/org.gnome.Platform/x86_64/46"])
 
 
+class FlatpakRealExitCodes(unittest.TestCase):
+    """Issue #7: Flatpak exits with 1 after declining its own "Proceed?" — that is not an error."""
+
+    LISTING = ("\n        ID                          Branch    Op\n"
+               " 1.\t   \torg.gnome.Platform\t46\tr\n"
+               " 2.\t   \torg.gnome.Platform.Locale\t46\tr\n\n"
+               "Proceed with these changes to the system installation? [Y/n]: n\n")
+
+    def _run(self, returncode, stdout, stderr=""):
+        with mock.patch.object(helper, "INVOKING_UID", None), \
+             mock.patch.object(helper, "exe", side_effect=lambda n: f"/usr/bin/{n}"), \
+             mock.patch.object(helper.subprocess, "run",
+                               return_value=mock.Mock(returncode=returncode, stdout=stdout, stderr=stderr)):
+            return helper.flatpak_unused_as_invoking_user()
+
+    def test_declined_prompt_with_exit_code_1_is_a_valid_listing(self):
+        out = self._run(1, self.LISTING)
+        rows = policy.parse_flatpak_unused(out)
+        self.assertTrue(policy.flatpak_ref_in("runtime/org.gnome.Platform/x86_64/46", rows))
+
+    def test_nothing_unused_exit_code_0(self):
+        self.assertEqual(policy.parse_flatpak_unused(self._run(0, "Nothing unused to uninstall\n")), [])
+
+    def test_real_failure_is_still_refused_and_explained(self):
+        with self.assertRaises(helper.Refused) as cm:
+            self._run(1, "", "error: No installation found\n")
+        self.assertIn("No installation found", str(cm.exception))
+
+    def test_exit_code_1_without_the_prompt_is_refused(self):
+        with self.assertRaises(helper.Refused):
+            self._run(1, " 1.\t   \torg.gnome.Platform\t46\tr\n")
+
+    def test_never_answers_yes(self):
+        # A "y" answer would mean Flatpak actually removed something during the check.
+        with self.assertRaises(helper.Refused):
+            self._run(1, self.LISTING.replace("[Y/n]: n", "[Y/n]: y"))
+
+
+class PacmanDryRun(unittest.TestCase):
+    """Issue #7: when pacman's dry run fails, say why instead of an empty list."""
+
+    def _remove(self, sim):
+        def fake_capture(argv, timeout=300, c_locale=False):
+            if argv[:2] == ["pacman", "-Qdtq"]:
+                return mock.Mock(returncode=0, stdout="cmake\nmeson\n", stderr="")
+            return sim
+        with mock.patch.object(helper, "capture", fake_capture), \
+             mock.patch.object(helper, "stream", return_value=0) as stream:
+            helper.op_remove_packages({"manager": "pacman", "purpose": "autoremove",
+                                       "packages": ["cmake", "meson"]})
+        return stream
+
+    def test_failed_dry_run_shows_pacman_error(self):
+        sim = mock.Mock(returncode=1, stdout=":: removing cmake breaks dependency 'cmake' required by foo\n",
+                        stderr="error: failed to prepare transaction (could not satisfy dependencies)\n")
+        with self.assertRaises(helper.Refused) as cm:
+            self._remove(sim)
+        msg = str(cm.exception)
+        self.assertIn("dry run failed", msg)
+        self.assertIn("could not satisfy dependencies", msg)
+        self.assertIn("required by foo", msg)
+
+    def test_extra_packages_are_named(self):
+        sim = mock.Mock(returncode=0, stdout="cmake\nmeson\nninja\n", stderr="")
+        with self.assertRaises(helper.Refused) as cm:
+            self._remove(sim)
+        self.assertIn("ninja", str(cm.exception))
+
+    def test_clean_dry_run_removes_exactly_the_selection(self):
+        stream = self._remove(mock.Mock(returncode=0, stdout="cmake\nmeson\n", stderr=""))
+        stream.assert_called_once_with(["pacman", "-Rn", "--noconfirm", "cmake", "meson"])
+
+
 class InstallLayout(unittest.TestCase):
     def test_helper_is_found_next_to_the_installation(self):
         for prefix in ("usr", "usr/local"):

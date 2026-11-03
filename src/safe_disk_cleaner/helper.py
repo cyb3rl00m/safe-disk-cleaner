@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -34,10 +35,28 @@ JOURNAL_CONF = os.path.join(JOURNAL_CONF_DIR, "60-safe-disk-cleaner.conf")
 INVOKING_UID: int | None = None   # the user who ran pkexec (from PKEXEC_UID)
 
 
+# Not attached to a terminal, `flatpak uninstall --unused` lists what is unused, answers its own
+# "Proceed?" question with "n" and exits with code 1. That is the NORMAL result whenever something
+# is unused; only "Nothing unused to uninstall" exits with 0.
+FLATPAK_DECLINED_RE = re.compile(r"Proceed with these changes to the [^\n]*\[Y/n\]: n\s*$")
+
+
+def why_failed(res: subprocess.CompletedProcess, limit: int = 5) -> str:
+    """The error lines a command printed, for the message shown to the user."""
+    lines = []
+    for line in (res.stderr or "").splitlines() + (res.stdout or "").splitlines():
+        line = line.strip()
+        if line.lower().startswith(("error", ":: ", "warning")) and line not in lines:
+            lines.append(line[:300])
+    if not lines:
+        tail = [x.strip() for x in (res.stderr or "").splitlines() if x.strip()]
+        lines = [x[:300] for x in tail[-2:]]
+    return " — ".join(lines[:limit]) or f"exit code {res.returncode}, no error message"
+
+
 def flatpak_unused_as_invoking_user() -> str:
     """Output of `flatpak uninstall --unused --system`, run as the real user."""
     import pwd
-    argv = ["flatpak", "uninstall", "--unused", "--system"]
     if INVOKING_UID is not None and INVOKING_UID != 0:
         try:
             pw = pwd.getpwuid(INVOKING_UID)
@@ -45,12 +64,14 @@ def flatpak_unused_as_invoking_user() -> str:
             raise Refused("could not look up the user who started the app")
         argv = [exe("runuser"), "-u", pw.pw_name, "--", "/usr/bin/env", "-i", f"HOME={pw.pw_dir}",
                 f"PATH={SAFE_PATH}", "LC_ALL=C", exe("flatpak"), "uninstall", "--unused", "--system"]
-        res = subprocess.run(argv, capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=300)
     else:
-        res = capture(argv)
-    if res.returncode != 0:
-        raise Refused("Flatpak could not list unused runtimes")
-    return res.stdout
+        argv = ["/usr/bin/env", "LC_ALL=C", exe("flatpak"), "uninstall", "--unused", "--system"]
+    res = subprocess.run(argv, capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=300)
+    if res.returncode == 0:
+        return res.stdout
+    if res.returncode == 1 and FLATPAK_DECLINED_RE.search(res.stdout or ""):
+        return res.stdout
+    raise Refused("Flatpak could not list unused runtimes: " + why_failed(res))
 
 
 class Refused(Exception):
@@ -69,9 +90,10 @@ def exe(name: str) -> str:
     return path
 
 
-def capture(argv: list[str], timeout: int = 300) -> subprocess.CompletedProcess:
+def capture(argv: list[str], timeout: int = 300, c_locale: bool = False) -> subprocess.CompletedProcess:
+    env = {**os.environ, "LC_ALL": "C"} if c_locale else None
     return subprocess.run([exe(argv[0]), *argv[1:]], capture_output=True, text=True,
-                          stdin=subprocess.DEVNULL, timeout=timeout)
+                          stdin=subprocess.DEVNULL, timeout=timeout, env=env)
 
 
 def stream(argv: list[str], timeout: int = 3600) -> int:
@@ -196,15 +218,17 @@ def op_remove_packages(op: dict) -> None:
             raise Refused("no longer unneeded: " + ", ".join(sorted(missing)))
         check_rc(stream(["dnf", "remove", "-y", *pkgs]), "dnf remove")
     elif mgr == "pacman":
-        res = capture(["pacman", "-Qdtq"])
+        res = capture(["pacman", "-Qdtq"], c_locale=True)
         allowed = {line.strip() for line in res.stdout.splitlines() if line.strip()}
         missing = wanted - allowed
         if missing:
             raise Refused("no longer orphaned: " + ", ".join(sorted(missing)))
-        sim = capture(["pacman", "-Rn", "--print", "--print-format", "%n", *pkgs])
+        sim = capture(["pacman", "-Rn", "--print", "--print-format", "%n", *pkgs], c_locale=True)
+        if sim.returncode != 0:
+            raise Refused("pacman's dry run failed: " + why_failed(sim))
         extra = {line.strip() for line in sim.stdout.splitlines() if line.strip()} - wanted
-        if sim.returncode != 0 or extra:
-            raise Refused("pacman would remove more than selected: " + ", ".join(sorted(extra)))
+        if extra:
+            raise Refused("pacman would also remove packages you didn't select: " + ", ".join(sorted(extra)))
         check_rc(stream(["pacman", "-Rn", "--noconfirm", *pkgs]), "pacman -Rn")
     else:
         raise Refused("unknown package manager")

@@ -6,7 +6,7 @@
 
 **See where your disk space went — and understand what is safe to delete.**
 
-[![Release v1.1.1](https://img.shields.io/badge/release-v1.1.1-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Release v1.1.2](https://img.shields.io/badge/release-v1.1.2-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -32,36 +32,36 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ## Highlights
 
-- 🧭 **Explains everything in plain language.** Every category answers four questions: *What is it?
+- **Explains everything in plain language.** Every category answers four questions: *What is it?
   Why does it get so big? Is it safe to delete? What will this app do?*
-- 🛡️ **Safe by design.** Only items marked *Safe* are pre-selected. The kernel you're running and a
+- **Safe by design.** Only items marked *Safe* are pre-selected. The kernel you're running and a
   fallback kernel are always kept. Nothing is deleted until you confirm.
-- 🔍 **Smarter, not just wider.** It reads every picture preview and removes only those whose file no
+- **Smarter, not just wider.** It reads every picture preview and removes only those whose file no
   longer exists. Previews of USB drives that aren't plugged in are kept.
-- 📦 **Made for modern Linux.** Old Snap revisions and unused Flatpak runtimes — often several GB on
+- **Made for modern Linux.** Old Snap revisions and unused Flatpak runtimes — often several GB on
   Ubuntu — are first-class categories.
-- 🔒 **Locks apps that are running.** Firefox's cache can't be deleted while Firefox is open.
-- 📏 **Stops the problem from coming back.** One click caps the journal size for good, or sets how
+- **Locks apps that are running.** Firefox's cache can't be deleted while Firefox is open.
+- **Stops the problem from coming back.** One click caps the journal size for good, or sets how
   many Snap versions are kept.
-- 📊 **Shows real results.** After cleaning it reports how much free space your disks actually gained.
-- 👀 **Nothing hidden.** "Show the exact commands" reveals every command before it runs.
+- **Shows real results.** After cleaning it reports how much free space your disks actually gained.
+- **Nothing hidden.** "Show the exact commands" reveals every command before it runs.
 
 ## What it cleans
 
-| | Category | What it is | Label |
-|:-:|---|---|---|
-| 🐧 | **Old kernels** | Previous Linux kernels left behind by updates | Safe |
-| ⬇️ | **Downloaded update files** | Package files APT / DNF / pacman / zypper kept after installing | Safe |
-| 📦 | **Packages no longer needed** | Dependencies nothing uses anymore | Usually safe |
-| 🔄 | **Old Snap versions** | Disabled revisions kept only for `snap revert` | Safe |
-| 🧩 | **Unused Flatpak runtimes** | Runtimes no installed app needs | Safe |
-| 📜 | **System journal** | Old entries of the system log — shrink it and cap it permanently | Safe |
-| ⚠️ | **Crash reports & core dumps** | Memory snapshots of crashed programs | Safe |
-| 🗂️ | **Old log files** | Rotated copies like `syslog.1` and `kern.log.2.gz` | Safe |
-| 🖼️ | **Picture previews** | Thumbnails — especially of files that no longer exist | Safe |
-| 📁 | **App caches in your home** | Every folder in `~/.cache`, each explained on its own | Per folder |
-| 📱 | **Flatpak & Snap app caches** | Caches of sandboxed apps | Usually safe |
-| 🗑️ | **Trash** | Every item with its original location and deletion date | Review first |
+| Category | What it is | Label |
+|---|---|---|
+| **Old kernels** | Previous Linux kernels left behind by updates | Safe |
+| **Downloaded update files** | Package files APT / DNF / pacman / zypper kept after installing | Safe |
+| **Packages no longer needed** | Dependencies nothing uses anymore | Usually safe |
+| **Old Snap versions** | Disabled revisions kept only for `snap revert` | Safe |
+| **Unused Flatpak runtimes** | Runtimes no installed app needs | Safe |
+| **System journal** | Old entries of the system log — shrink it and cap it permanently | Safe |
+| **Crash reports & core dumps** | Memory snapshots of crashed programs | Safe |
+| **Old log files** | Rotated copies like `syslog.1` and `kern.log.2.gz` | Safe |
+| **Picture previews** | Thumbnails — especially of files that no longer exist | Safe |
+| **App caches in your home** | Every folder in `~/.cache`, each explained on its own | Per folder |
+| **Flatpak & Snap app caches** | Caches of sandboxed apps | Usually safe |
+| **Trash** | Every item with its original location and deletion date | Review first |
 
 **What the labels mean**
 
@@ -73,19 +73,21 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS — `.deb` package (recommended)
 
-Download and install version 1.1.1:
+Download and install version 1.1.2:
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.1/safe-disk-cleaner_1.1.1_all.deb
-sudo apt install ./safe-disk-cleaner_1.1.1_all.deb
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.2/safe-disk-cleaner_1.1.2_all.deb
+sudo apt install ./safe-disk-cleaner_1.1.2_all.deb
 ```
 
-Or download **`safe-disk-cleaner_1.1.1_all.deb`** by hand from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.1), open a terminal in
+Or download **`safe-disk-cleaner_1.1.2_all.deb`** by hand from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.2), open a terminal in
 the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
 
 Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
 libadwaita, Python bindings and pkexec) automatically.
+
+The same `.deb` works on regular PCs and on 64-bit ARM computers (Raspberry Pi 4/5, ARM laptops).
 
 **Updating:** download the newest `.deb` from the
 [releases page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases) and install it the same way —
@@ -93,16 +95,25 @@ it replaces the old version.
 
 ### Any distribution — AppImage
 
-One file, no installation. Download it, make it executable and run it:
+One file, no installation. Pick the file for your computer:
+
+| Your computer | File |
+|---|---|
+| Regular PC or laptop (Intel / AMD) | `Safe_Disk_Cleaner-1.1.2-x86_64.AppImage` |
+| 64-bit ARM (Raspberry Pi 4/5, ARM laptops) | `Safe_Disk_Cleaner-1.1.2-aarch64.AppImage` |
+
+Not sure? Run `uname -m` in a terminal — it prints `x86_64` or `aarch64`.
+
+Download it, make it executable and run it (PC example — for ARM, replace `x86_64` with `aarch64`):
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.1/Safe_Disk_Cleaner-1.1.1-x86_64.AppImage
-chmod +x Safe_Disk_Cleaner-1.1.1-x86_64.AppImage
-./Safe_Disk_Cleaner-1.1.1-x86_64.AppImage
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.2/Safe_Disk_Cleaner-1.1.2-x86_64.AppImage
+chmod +x Safe_Disk_Cleaner-1.1.2-x86_64.AppImage
+./Safe_Disk_Cleaner-1.1.2-x86_64.AppImage
 ```
 
-Prefer the mouse? Download **`Safe_Disk_Cleaner-1.1.1-x86_64.AppImage`** from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.1), right-click it →
+Prefer the mouse? Download the file from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.2), right-click it →
 **Properties** → turn on **Executable as Program**, then double-click it.
 
 - **What it needs:** Python 3, GTK 4, libadwaita 1.4+ and polkit — already installed on most GNOME
@@ -111,7 +122,6 @@ Prefer the mouse? Download **`Safe_Disk_Cleaner-1.1.1-x86_64.AppImage`** from th
 - **Updates:** AppImage managers such as [Gear Lever](https://flathub.org/apps/it.mijorus.gearlever)
   find new versions automatically.
 - **Removing it:** just delete the file.
-- **64-bit PCs (x86_64) only** for now.
 
 ### Any distribution — from source
 
@@ -188,14 +198,14 @@ system-level space hogs on a modern Ubuntu/systemd desktop, and on *explaining* 
 
 | | Safe Disk Cleaner | BleachBit |
 |---|:-:|:-:|
-| Explains each category: what, why, is it safe, what runs | ✅ | Short descriptions |
-| Old kernels with a keep-running-plus-fallback rule | ✅ | Via APT autoremove |
-| Removes old Snap revisions and unused Flatpak runtimes | ✅ | Cleans app data of some Snap/Flatpak apps |
-| Removes only previews of files that no longer exist | ✅ | Deletes all previews |
-| Caps the journal size permanently | ✅ | — |
-| Locks caches of running apps | ✅ | Warns for some apps |
-| Cleans browser history, cookies and privacy traces | — | ✅ |
-| Windows support | — | ✅ |
+| Explains each category: what, why, is it safe, what runs | Yes | Short descriptions |
+| Old kernels with a keep-running-plus-fallback rule | Yes | Via APT autoremove |
+| Removes old Snap revisions and unused Flatpak runtimes | Yes | Cleans app data of some Snap/Flatpak apps |
+| Removes only previews of files that no longer exist | Yes | Deletes all previews |
+| Caps the journal size permanently | Yes | — |
+| Locks caches of running apps | Yes | Warns for some apps |
+| Cleans browser history, cookies and privacy traces | — | Yes |
+| Windows support | — | Yes |
 
 <sub>Based on BleachBit's documented cleaners at the time of writing. Spotted something outdated?
 Please open an issue — a fair comparison matters.</sub>

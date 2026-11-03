@@ -62,6 +62,7 @@ Please make sure both pass before opening a pull request.
 ```bash
 bash packaging/build-deb.sh       # → dist/safe-disk-cleaner_<version>_all.deb
 bash packaging/build-appimage.sh  # → dist/Safe_Disk_Cleaner-<version>-x86_64.AppImage (+ .zsync)
+ARCH=aarch64 bash packaging/build-appimage.sh  # → the same for 64-bit ARM
 ```
 
 The version comes from `src/safe_disk_cleaner/__init__.py`.

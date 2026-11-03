@@ -1,25 +1,43 @@
 #!/usr/bin/env bash
-# Builds dist/Safe_Disk_Cleaner-<version>-x86_64.AppImage (+ .zsync for updates). No root needed.
-#   bash packaging/build-appimage.sh
-# Downloads appimagetool on first use; set APPIMAGETOOL=/path/to/appimagetool to use your own.
+# Builds dist/Safe_Disk_Cleaner-<version>-<arch>.AppImage (+ .zsync for updates). No root needed.
+#   bash packaging/build-appimage.sh                 # 64-bit PC (x86_64)
+#   ARCH=aarch64 bash packaging/build-appimage.sh    # 64-bit ARM (Raspberry Pi 4/5, ARM laptops)
+# The app itself is pure Python, so one x86_64 build machine can build both: only the small
+# AppImage starter ("runtime") differs per architecture.
+# Downloads appimagetool and the runtime on first use; set APPIMAGETOOL=/path/to/appimagetool
+# to use your own.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
 APP_ID="io.github.cyb3rl00m.SafeDiskCleaner"
 VERSION="$(sed -n 's/^VERSION = "\(.*\)"/\1/p' "$ROOT/src/safe_disk_cleaner/__init__.py")"
-ARCH="x86_64"
+ARCH="${ARCH:-x86_64}"
+case "$ARCH" in
+    x86_64|aarch64) ;;
+    *) echo "ARCH must be x86_64 or aarch64, not '$ARCH'" >&2; exit 1 ;;
+esac
 OUT="$ROOT/dist"
 NAME="Safe_Disk_Cleaner-$VERSION-$ARCH.AppImage"
 # Lets AppImage managers (Gear Lever, AppImageUpdate, AppImageLauncher) find new versions.
 UPDATE_INFO="gh-releases-zsync|cyb3rl00m|safe-disk-cleaner|latest|Safe_Disk_Cleaner-*-$ARCH.AppImage.zsync"
 
-TOOL="${APPIMAGETOOL:-$ROOT/packaging/.cache/appimagetool-$ARCH.AppImage}"
+CACHE="$ROOT/packaging/.cache"
+# appimagetool runs on the build machine, so it is the build machine's architecture.
+TOOL="${APPIMAGETOOL:-$CACHE/appimagetool-$(uname -m).AppImage}"
 if [[ ! -x "$TOOL" ]]; then
     echo "==> Downloading appimagetool"
-    mkdir -p "$(dirname "$TOOL")"
+    mkdir -p "$CACHE"
     curl -fsSL -o "$TOOL" \
-        "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-$ARCH.AppImage"
+        "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-$(uname -m).AppImage"
     chmod +x "$TOOL"
+fi
+# The runtime is the part of the AppImage that starts on the user's computer: target architecture.
+RUNTIME="$CACHE/runtime-$ARCH"
+if [[ ! -s "$RUNTIME" ]]; then
+    echo "==> Downloading the $ARCH AppImage runtime"
+    mkdir -p "$CACHE"
+    curl -fsSL -o "$RUNTIME" \
+        "https://github.com/AppImage/type2-runtime/releases/download/continuous/runtime-$ARCH"
 fi
 
 APPDIR="$(mktemp -d)/SafeDiskCleaner.AppDir"
@@ -43,6 +61,7 @@ mkdir -p "$OUT"
 rm -f "$OUT/$NAME" "$OUT/$NAME.zsync"
 # --appimage-extract-and-run: works without FUSE (e.g. on build servers)
 (cd "$OUT" && ARCH="$ARCH" VERSION="$VERSION" "$TOOL" --appimage-extract-and-run --no-appstream \
+     --runtime-file "$RUNTIME" \
      -u "$UPDATE_INFO" "$APPDIR" "$OUT/$NAME" >/dev/null)
 chmod +x "$OUT/$NAME"
 echo "==> $OUT/$NAME"
