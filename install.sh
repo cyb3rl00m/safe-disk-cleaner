@@ -37,7 +37,8 @@ remove_from() {   # remove an install.sh installation from prefix $1
           "$p/bin/safe-disk-cleaner" \
           "$p/share/applications/$APP_ID.desktop" \
           "$p/share/metainfo/$APP_ID.metainfo.xml" \
-          "$p/share/icons/hicolor/scalable/apps/$APP_ID.svg"
+          "$p/share/icons/hicolor/scalable/apps/$APP_ID.svg" \
+          "$p/share/icons/hicolor/256x256/apps/$APP_ID.png"
 }
 
 echo "==> Installing dependencies (GTK 4, libadwaita, Python bindings, pkexec)"
@@ -74,6 +75,8 @@ install -D -m 644 "$SRC/data/$APP_ID.desktop"            "$PREFIX/share/applicat
 install -D -m 644 "$SRC/data/$APP_ID.metainfo.xml"       "$PREFIX/share/metainfo/$APP_ID.metainfo.xml"
 install -D -m 644 "$SRC/data/icons/hicolor/scalable/apps/$APP_ID.svg" \
                   "$PREFIX/share/icons/hicolor/scalable/apps/$APP_ID.svg"
+install -D -m 644 "$SRC/data/icons/hicolor/256x256/apps/$APP_ID.png" \
+                  "$PREFIX/share/icons/hicolor/256x256/apps/$APP_ID.png"
 
 # The polkit policy names the exact helper path, so point it at this prefix.
 install -d -m 755 "$POLKIT_DIR"

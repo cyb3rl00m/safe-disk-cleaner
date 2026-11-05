@@ -223,13 +223,16 @@ def op_remove_packages(op: dict) -> None:
         missing = wanted - allowed
         if missing:
             raise Refused("no longer orphaned: " + ", ".join(sorted(missing)))
-        sim = capture(["pacman", "-Rn", "--print", "--print-format", "%n", *pkgs], c_locale=True)
+        # Dry run with exactly the command that will run (pacman refuses --print together with -n).
+        sim = capture(["pacman", "-R", "--print", "--print-format", "%n", *pkgs], c_locale=True)
         if sim.returncode != 0:
             raise Refused("pacman's dry run failed: " + why_failed(sim))
         extra = {line.strip() for line in sim.stdout.splitlines() if line.strip()} - wanted
         if extra:
             raise Refused("pacman would also remove packages you didn't select: " + ", ".join(sorted(extra)))
-        check_rc(stream(["pacman", "-Rn", "--noconfirm", *pkgs]), "pacman -Rn")
+        # Plain -R (not -Rn): config files you edited are kept as .pacsave backups, just like
+        # orphaned packages on APT keep their configs.
+        check_rc(stream(["pacman", "-R", "--noconfirm", *pkgs]), "pacman -R")
     else:
         raise Refused("unknown package manager")
 

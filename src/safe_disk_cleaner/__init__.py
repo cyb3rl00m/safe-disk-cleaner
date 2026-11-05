@@ -2,5 +2,5 @@
 
 APP_ID = "io.github.cyb3rl00m.SafeDiskCleaner"
 APP_NAME = "Safe Disk Cleaner"
-VERSION = "1.1.2"
+VERSION = "1.1.3"
 WEBSITE = "https://github.com/cyb3rl00m/safe-disk-cleaner"

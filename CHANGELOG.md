@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.3 — 2026-11-05
+
+Thanks again to @Kayxue for testing 1.1.2 and for both reports
+([#7](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/7), [#8](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/8)).
+
+- **Fixed (Arch and other pacman systems): "Packages no longer needed" could never be removed.**
+  The safety dry run combined two pacman options that pacman doesn't allow together
+  (`--nosave` and `--print`), so it always failed and nothing was removed.
+- Unneeded packages are now removed with `pacman -R` instead of `pacman -Rn`: config files you
+  changed are kept as `.pacsave` backups, the same way APT keeps them.
+- **Fixed: the app icon was missing in the About window** when running the AppImage, or when installed
+  with `install.sh` into a custom `PREFIX`. The app now also looks for its icon next to itself.
+- A PNG version of the icon is now included as well, for systems that can't display SVG icons.
+
 ## 1.1.2 — 2026-11-03
 
 Thanks to @Kayxue for the report ([#7](https://github.com/cyb3rl00m/safe-disk-cleaner/issues/7)).

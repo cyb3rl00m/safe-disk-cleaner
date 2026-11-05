@@ -51,6 +51,8 @@ install -D -m 755 "$ROOT/helper/safe-disk-cleaner-helper" "$APPDIR/usr/libexec/s
 install -D -m 644 "$ROOT/data/$APP_ID.metainfo.xml"       "$APPDIR/usr/share/metainfo/$APP_ID.appdata.xml"
 install -D -m 644 "$ROOT/data/icons/hicolor/scalable/apps/$APP_ID.svg" \
                   "$APPDIR/usr/share/icons/hicolor/scalable/apps/$APP_ID.svg"
+install -D -m 644 "$ROOT/data/icons/hicolor/256x256/apps/$APP_ID.png" \
+                  "$APPDIR/usr/share/icons/hicolor/256x256/apps/$APP_ID.png"
 install -m 755 "$ROOT/packaging/appimage/AppRun" "$APPDIR/AppRun"
 install -m 644 "$ROOT/data/$APP_ID.desktop" "$APPDIR/$APP_ID.desktop"
 install -D -m 644 "$ROOT/data/$APP_ID.desktop" "$APPDIR/usr/share/applications/$APP_ID.desktop"

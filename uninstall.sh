@@ -34,7 +34,8 @@ for p in "${PREFIXES[@]}"; do
               "$p/bin/safe-disk-cleaner" \
               "$p/share/applications/$APP_ID.desktop" \
               "$p/share/metainfo/$APP_ID.metainfo.xml" \
-              "$p/share/icons/hicolor/scalable/apps/$APP_ID.svg"
+              "$p/share/icons/hicolor/scalable/apps/$APP_ID.svg" \
+              "$p/share/icons/hicolor/256x256/apps/$APP_ID.png"
         [[ -f "$p/share/icons/hicolor/icon-theme.cache" ]] && gtk-update-icon-cache -q -t "$p/share/icons/hicolor" 2>/dev/null || true
         update-desktop-database -q "$p/share/applications" 2>/dev/null || true
         echo "Removed Safe Disk Cleaner from $p"

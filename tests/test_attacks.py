@@ -8,6 +8,7 @@ import io
 import json
 import os
 import random
+import re
 import shutil
 import string
 import sys
@@ -24,7 +25,7 @@ from safe_disk_cleaner import cleaner, helper, policy  # noqa: E402
 ALLOWED_COMMANDS = {
     ("apt-get", "clean"), ("apt-get", "purge"), ("apt-get", "remove"),
     ("dnf", "clean"), ("dnf", "remove"), ("paccache", "-rk2"), ("paccache", "-ruk0"),
-    ("pacman", "-Rn"), ("zypper", "--non-interactive"),
+    ("pacman", "-R"), ("zypper", "--non-interactive"),
     ("snap", "remove"), ("snap", "set"), ("journalctl", "--vacuum-size=100M"),
     ("journalctl", "--vacuum-size=200M"), ("journalctl", "--vacuum-size=500M"),
     ("journalctl", "--vacuum-size=1G"), ("systemctl", "restart"), ("flatpak", "uninstall"),
@@ -134,7 +135,7 @@ class FuzzHelper(unittest.TestCase):
             for argv in executed:
                 self.assertIn(tuple(argv[:2]), ALLOWED_COMMANDS, argv)
                 if argv[:2] in (["apt-get", "purge"], ["apt-get", "remove"], ["dnf", "remove"],
-                                ["pacman", "-Rn"], ["snap", "remove"]):
+                                ["pacman", "-R"], ["snap", "remove"]):
                     self.fail(f"removed something on a system where nothing is removable: {argv}")
         for path in self.sentinels:
             self.assertTrue(os.path.exists(path), f"{path} was deleted!")
@@ -318,7 +319,31 @@ class PacmanDryRun(unittest.TestCase):
 
     def test_clean_dry_run_removes_exactly_the_selection(self):
         stream = self._remove(mock.Mock(returncode=0, stdout="cmake\nmeson\n", stderr=""))
-        stream.assert_called_once_with(["pacman", "-Rn", "--noconfirm", "cmake", "meson"])
+        stream.assert_called_once_with(["pacman", "-R", "--noconfirm", "cmake", "meson"])
+
+    def test_dry_run_uses_options_pacman_accepts(self):
+        # Issue #7: pacman refuses "--nosave and --print may not be used together".
+        seen = []
+
+        def fake_capture(argv, timeout=300, c_locale=False):
+            seen.append(argv)
+            if argv[:2] == ["pacman", "-Qdtq"]:
+                return mock.Mock(returncode=0, stdout="cmake\n", stderr="")
+            return mock.Mock(returncode=0, stdout="cmake\n", stderr="")
+        with mock.patch.object(helper, "capture", fake_capture), \
+             mock.patch.object(helper, "stream", return_value=0) as stream:
+            helper.op_remove_packages({"manager": "pacman", "purpose": "autoremove", "packages": ["cmake"]})
+        dry = [a for a in seen if "--print" in a][0]
+        self.assertEqual(dry, ["pacman", "-R", "--print", "--print-format", "%n", "cmake"])
+        for argv in seen + [stream.call_args[0][0]]:
+            self.assertFalse(any(re.fullmatch(r"-[A-Za-z]*n[A-Za-z]*", a) or a == "--nosave" for a in argv
+                                 if a.startswith("-") and not a.startswith("--print")), argv)
+
+    def test_real_removal_keeps_edited_configs(self):
+        stream = self._remove(mock.Mock(returncode=0, stdout="cmake\nmeson\n", stderr=""))
+        argv = stream.call_args[0][0]
+        self.assertNotIn("-Rn", argv)
+        self.assertNotIn("--nosave", argv)
 
 
 class InstallLayout(unittest.TestCase):

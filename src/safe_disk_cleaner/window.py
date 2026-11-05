@@ -18,7 +18,7 @@ from . import APP_ID, APP_NAME, VERSION, WEBSITE  # noqa: E402
 from .cleaner import Plan, build_plan, execute, item_size, run_root_ops  # noqa: E402
 from .model import Category, Item, Risk, Setting  # noqa: E402
 from .scanners import SCANNERS, ScanContext, run_scanner  # noqa: E402
-from .util import FileSystem, filesystems, human_size, os_pretty_name  # noqa: E402
+from .util import FileSystem, filesystems, human_size, os_pretty_name, own_icon_dirs  # noqa: E402
 
 CSS = """
 .risk-badge { border-radius: 999px; padding: 2px 10px; font-size: 0.85em; font-weight: bold; }
@@ -900,10 +900,10 @@ class Application(Adw.Application):
         if display is not None:
             Gtk.StyleContext.add_provider_for_display(display, provider,
                                                       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-            # When running from the source tree, find the icon in ./data/icons
-            dev_icons = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "data", "icons"))
-            if os.path.isdir(dev_icons):
-                Gtk.IconTheme.get_for_display(display).add_search_path(dev_icons)
+            # Make the app's own icon findable wherever the app runs from (issue #8).
+            theme = Gtk.IconTheme.get_for_display(display)
+            for path in own_icon_dirs(os.path.dirname(os.path.abspath(__file__))):
+                theme.add_search_path(path)
         Gtk.Window.set_default_icon_name(APP_ID)
 
     def do_activate(self) -> None:

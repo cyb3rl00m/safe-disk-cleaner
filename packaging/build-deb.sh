@@ -24,6 +24,8 @@ install -D -m 644 "$ROOT/data/$APP_ID.desktop"            "$STAGE/usr/share/appl
 install -D -m 644 "$ROOT/data/$APP_ID.metainfo.xml"       "$STAGE/usr/share/metainfo/$APP_ID.metainfo.xml"
 install -D -m 644 "$ROOT/data/icons/hicolor/scalable/apps/$APP_ID.svg" \
                   "$STAGE/usr/share/icons/hicolor/scalable/apps/$APP_ID.svg"
+install -D -m 644 "$ROOT/data/icons/hicolor/256x256/apps/$APP_ID.png" \
+                  "$STAGE/usr/share/icons/hicolor/256x256/apps/$APP_ID.png"
 install -D -m 644 "$ROOT/README.md"    "$STAGE/usr/share/doc/$PKG/README.md"
 install -D -m 644 "$ROOT/CHANGELOG.md" "$STAGE/usr/share/doc/$PKG/CHANGELOG.md"
 install -D -m 644 "$ROOT/LICENSE"      "$STAGE/usr/share/doc/$PKG/copyright"

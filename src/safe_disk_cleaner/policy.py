@@ -231,7 +231,7 @@ def preview_op(op: dict) -> list[str]:
         if mgr == "dnf":
             return [f"dnf remove -y {pkgs}"]
         if mgr == "pacman":
-            return [f"pacman -Rn --noconfirm {pkgs}"]
+            return [f"pacman -R --noconfirm {pkgs}"]
     if kind == "snap-remove-revision":
         return [f"snap remove {op.get('name')} --revision={op.get('revision')}"]
     if kind == "snap-set-retain":

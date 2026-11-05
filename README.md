@@ -6,7 +6,7 @@
 
 **See where your disk space went — and understand what is safe to delete.**
 
-[![Release v1.1.2](https://img.shields.io/badge/release-v1.1.2-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
+[![Release v1.1.3](https://img.shields.io/badge/release-v1.1.3-26a269)](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3584e4)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Linux-555555?logo=linux&logoColor=white)
 ![GTK 4 + libadwaita](https://img.shields.io/badge/GTK%204-libadwaita-4a86cf?logo=gnome&logoColor=white)
@@ -73,15 +73,15 @@ safe, and exactly which command will run — and then lets *you* decide.
 
 ### Ubuntu, Debian, Linux Mint, Pop!_OS — `.deb` package (recommended)
 
-Download and install version 1.1.2:
+Download and install version 1.1.3:
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.2/safe-disk-cleaner_1.1.2_all.deb
-sudo apt install ./safe-disk-cleaner_1.1.2_all.deb
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.3/safe-disk-cleaner_1.1.3_all.deb
+sudo apt install ./safe-disk-cleaner_1.1.3_all.deb
 ```
 
-Or download **`safe-disk-cleaner_1.1.2_all.deb`** by hand from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.2), open a terminal in
+Or download **`safe-disk-cleaner_1.1.3_all.deb`** by hand from the
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.3), open a terminal in
 the folder where you saved it (usually `cd ~/Downloads`), and run the second command.
 
 Then open **Safe Disk Cleaner** from your app menu. APT installs everything it needs (GTK 4,
@@ -99,21 +99,21 @@ One file, no installation. Pick the file for your computer:
 
 | Your computer | File |
 |---|---|
-| Regular PC or laptop (Intel / AMD) | `Safe_Disk_Cleaner-1.1.2-x86_64.AppImage` |
-| 64-bit ARM (Raspberry Pi 4/5, ARM laptops) | `Safe_Disk_Cleaner-1.1.2-aarch64.AppImage` |
+| Regular PC or laptop (Intel / AMD) | `Safe_Disk_Cleaner-1.1.3-x86_64.AppImage` |
+| 64-bit ARM (Raspberry Pi 4/5, ARM laptops) | `Safe_Disk_Cleaner-1.1.3-aarch64.AppImage` |
 
 Not sure? Run `uname -m` in a terminal — it prints `x86_64` or `aarch64`.
 
 Download it, make it executable and run it (PC example — for ARM, replace `x86_64` with `aarch64`):
 
 ```bash
-wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.2/Safe_Disk_Cleaner-1.1.2-x86_64.AppImage
-chmod +x Safe_Disk_Cleaner-1.1.2-x86_64.AppImage
-./Safe_Disk_Cleaner-1.1.2-x86_64.AppImage
+wget https://github.com/cyb3rl00m/safe-disk-cleaner/releases/download/v1.1.3/Safe_Disk_Cleaner-1.1.3-x86_64.AppImage
+chmod +x Safe_Disk_Cleaner-1.1.3-x86_64.AppImage
+./Safe_Disk_Cleaner-1.1.3-x86_64.AppImage
 ```
 
 Prefer the mouse? Download the file from the
-[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.2), right-click it →
+[release page](https://github.com/cyb3rl00m/safe-disk-cleaner/releases/tag/v1.1.3), right-click it →
 **Properties** → turn on **Executable as Program**, then double-click it.
 
 - **What it needs:** Python 3, GTK 4, libadwaita 1.4+ and polkit — already installed on most GNOME

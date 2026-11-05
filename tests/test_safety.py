@@ -9,7 +9,8 @@ import unittest
 import zlib
 from unittest import mock
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(ROOT, "src"))
 
 from safe_disk_cleaner import cleaner, helper, policy, scanners  # noqa: E402
 from safe_disk_cleaner.model import Category, Choice, Explanation, Item, Risk  # noqa: E402
@@ -403,3 +404,52 @@ class MarkupSafety(unittest.TestCase):
     def test_some_category_titles_really_contain_ampersands(self):
         titles = [t for _s, t, _i, _f in scanners.SCANNERS]
         self.assertTrue(any("&" in t for t in titles))
+
+
+class IconLookup(unittest.TestCase):
+    """Issue #8: the About window's icon must be found however the app was installed."""
+
+    APP = "io.github.cyb3rl00m.SafeDiskCleaner"
+
+    def _layout(self, root, icon_rel):
+        pkg = os.path.join(root, "usr", "lib", "safe-disk-cleaner", "safe_disk_cleaner")
+        os.makedirs(pkg)
+        if icon_rel:
+            icon = os.path.join(root, icon_rel)
+            os.makedirs(os.path.dirname(icon))
+            open(icon, "w").close()
+        return pkg
+
+    def test_appimage_and_custom_prefix(self):
+        from safe_disk_cleaner.util import own_icon_dirs
+        with tempfile.TemporaryDirectory() as root:
+            pkg = self._layout(root, f"usr/share/icons/hicolor/scalable/apps/{self.APP}.svg")
+            self.assertEqual(own_icon_dirs(pkg), [os.path.join(root, "usr", "share", "icons")])
+
+    def test_png_alone_is_enough(self):
+        from safe_disk_cleaner.util import own_icon_dirs
+        with tempfile.TemporaryDirectory() as root:
+            pkg = self._layout(root, f"usr/share/icons/hicolor/256x256/apps/{self.APP}.png")
+            self.assertEqual(len(own_icon_dirs(pkg)), 1)
+
+    def test_folder_without_our_icon_is_not_added(self):
+        from safe_disk_cleaner.util import own_icon_dirs
+        with tempfile.TemporaryDirectory() as root:
+            pkg = self._layout(root, "usr/share/icons/hicolor/scalable/apps/some.other.App.svg")
+            self.assertEqual(own_icon_dirs(pkg), [])
+
+    def test_source_folder(self):
+        from safe_disk_cleaner.util import own_icon_dirs
+        pkg = os.path.join(ROOT, "src", "safe_disk_cleaner")
+        self.assertIn(os.path.join(ROOT, "data", "icons"), own_icon_dirs(pkg))
+
+    def test_png_fallback_ships_everywhere(self):
+        png = os.path.join(ROOT, "data", "icons", "hicolor", "256x256", "apps", self.APP + ".png")
+        with open(png, "rb") as fh:
+            head = fh.read(24)
+        self.assertEqual(head[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertEqual(int.from_bytes(head[16:20], "big"), 256)
+        for script in ("install.sh", "uninstall.sh", "packaging/build-deb.sh", "packaging/build-appimage.sh"):
+            with open(os.path.join(ROOT, script), encoding="utf-8") as fh:
+                self.assertIn("256x256/apps/$APP_ID.png", fh.read(), script)
+

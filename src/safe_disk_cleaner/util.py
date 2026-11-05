@@ -9,6 +9,8 @@ import stat
 import subprocess
 from dataclasses import dataclass
 
+from . import APP_ID
+
 C_ENV = {"LC_ALL": "C", "LANG": "C", "LANGUAGE": "C"}
 
 
@@ -212,3 +214,23 @@ def filesystems() -> list[FileSystem]:
 
 def total_free_bytes() -> int:
     return sum(fs.free for fs in filesystems())
+
+
+def own_icon_dirs(package_dir: str) -> list[str]:
+    """Icon folders that ship with this copy of the app and contain its icon.
+
+    GTK only searches the system's icon folders. Those cover the .deb, but not the AppImage
+    (its icons live inside the AppImage), a custom install.sh PREFIX, or the source folder.
+    """
+    candidates = [
+        os.path.join(package_dir, "..", "..", "data", "icons"),         # source folder: src/safe_disk_cleaner
+        os.path.join(package_dir, "..", "..", "..", "share", "icons"),  # <prefix>/lib/safe-disk-cleaner/…
+    ]
+    found = []
+    for path in candidates:
+        path = os.path.normpath(path)
+        hicolor = os.path.join(path, "hicolor")
+        if any(os.path.isfile(os.path.join(hicolor, size, "apps", APP_ID + ext))
+               for size, ext in (("scalable", ".svg"), ("256x256", ".png"))):
+            found.append(path)
+    return found
