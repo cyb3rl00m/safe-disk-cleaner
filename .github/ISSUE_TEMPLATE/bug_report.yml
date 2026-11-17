@@ -1,0 +1,44 @@
+name: Bug report
+description: Something doesn't work or looks wrong
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: "Menu → About, or run: safe-disk-cleaner --version"
+      placeholder: "1.1.3"
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How did you install it?
+      options:
+        - .deb package
+        - AppImage (x86_64)
+        - AppImage (aarch64 / ARM)
+        - install.sh
+        - Running from the source folder
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Distribution and desktop
+      placeholder: "Ubuntu 26.04, GNOME"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Error text
+      description: Copy the text from the cleaning window or the terminal, if there is any.
+      render: text

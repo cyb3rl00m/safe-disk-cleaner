@@ -67,4 +67,5 @@ ARCH=aarch64 bash packaging/build-appimage.sh  # → the same for 64-bit ARM
 
 The version comes from `src/safe_disk_cleaner/__init__.py`.
 
-Publishing a GitHub release builds both and attaches them to the release automatically.
+Publishing a GitHub release builds the `.deb` and both AppImages (x86_64 and aarch64) and attaches
+them to the release automatically.

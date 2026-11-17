@@ -1,0 +1,38 @@
+name: Explain a cache folder
+description: Tell us what an "unknown" folder in ~/.cache is, so the app can explain it
+labels: [cache-folder]
+body:
+  - type: input
+    id: folder
+    attributes:
+      label: Folder name in ~/.cache
+      placeholder: "myapp"
+    validations:
+      required: true
+  - type: input
+    id: program
+    attributes:
+      label: Which program creates it?
+      placeholder: "MyApp (https://example.org)"
+    validations:
+      required: true
+  - type: textarea
+    id: contents
+    attributes:
+      label: What is stored in it?
+      description: For example downloaded files, thumbnails, compiled shaders.
+    validations:
+      required: true
+  - type: textarea
+    id: effect
+    attributes:
+      label: What happens if it is deleted?
+      description: Is anything lost for good, or is it only rebuilt or downloaded again?
+    validations:
+      required: true
+  - type: input
+    id: process
+    attributes:
+      label: Process name while the program runs
+      description: "So the app can lock the folder while the program is open. Find it with: ps -e | grep -i name"
+      placeholder: "myapp"

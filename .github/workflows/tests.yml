@@ -1,0 +1,21 @@
+name: tests
+
+# Runs on every upload and pull request: the safety tests, a read-only scan, and a test build.
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Safety and attack tests
+        run: python -m unittest discover tests -v
+      - name: Read-only scan of the CI machine
+        run: python3 safe-disk-cleaner --report
+      - name: Build the .deb
+        run: bash packaging/build-deb.sh

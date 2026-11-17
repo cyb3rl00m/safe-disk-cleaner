@@ -1,0 +1,33 @@
+name: release
+
+# When you publish a release on GitHub, this runs the safety tests, builds the .deb
+# and the AppImages (PC and ARM), and attaches them to the release automatically.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run the safety tests
+        run: python3 -m unittest discover tests
+
+      - name: Build the .deb
+        run: bash packaging/build-deb.sh
+
+      - name: Build the AppImages
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq zsync
+          bash packaging/build-appimage.sh                 # 64-bit PC
+          ARCH=aarch64 bash packaging/build-appimage.sh    # 64-bit ARM
+
+      - name: Attach them to the release
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/*.deb dist/*.AppImage dist/*.zsync --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,20 @@
+name: Feature request
+description: Suggest something the app should do
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should the app do?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would it help?
+      description: What problem does it solve for you?
+  - type: textarea
+    id: safety
+    attributes:
+      label: Is it always safe?
+      description: This app only deletes things it can identify with certainty. If your idea deletes something, how can the app be sure it is safe?
