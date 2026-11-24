@@ -5,18 +5,20 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 
+from .i18n import N_, _
+
 
 class Risk(Enum):
-    SAFE = ("Safe", "risk-safe",
-            "Nothing you need is lost. The system recreates or re-downloads it if it is ever needed again.")
-    CAUTION = ("Usually safe", "risk-caution",
-               "Nothing personal is lost, but something will be slower or need re-downloading the next time.")
-    REVIEW = ("Review first", "risk-review",
-              "Could contain something you still want. Look through the list before cleaning.")
+    SAFE = (N_("Safe"), "risk-safe",
+            N_("Nothing you need is lost. The system recreates or re-downloads it if it is ever needed again."))
+    CAUTION = (N_("Usually safe"), "risk-caution",
+               N_("Nothing personal is lost, but something will be slower or need re-downloading the next time."))
+    REVIEW = (N_("Review first"), "risk-review",
+              N_("Could contain something you still want. Look through the list before cleaning."))
 
     @property
     def label(self) -> str:
-        return self.value[0]
+        return _(self.value[0])
 
     @property
     def css(self) -> str:
@@ -24,7 +26,7 @@ class Risk(Enum):
 
     @property
     def meaning(self) -> str:
-        return self.value[2]
+        return _(self.value[2])
 
     @property
     def rank(self) -> int:

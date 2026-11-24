@@ -18,7 +18,9 @@ from . import APP_ID, APP_NAME, VERSION, WEBSITE  # noqa: E402
 from .cleaner import Plan, build_plan, execute, item_size, run_root_ops  # noqa: E402
 from .model import Category, Item, Risk, Setting  # noqa: E402
 from .scanners import SCANNERS, ScanContext, run_scanner  # noqa: E402
-from .util import FileSystem, filesystems, human_size, os_pretty_name, own_icon_dirs  # noqa: E402
+from .util import FileSystem, filesystems, human_size, os_pretty_name, own_icon_dirs
+from .i18n import _, ngettext
+  # noqa: E402
 
 CSS = """
 .risk-badge { border-radius: 999px; padding: 2px 10px; font-size: 0.85em; font-weight: bold; }
@@ -157,13 +159,13 @@ class MainWindow(Adw.ApplicationWindow):
         # ---- sidebar -------------------------------------------------------
         sidebar_view = Adw.ToolbarView()
         side_header = Adw.HeaderBar()
-        self.scan_button = Gtk.Button(icon_name="view-refresh-symbolic", tooltip_text="Scan again (Ctrl+R)")
+        self.scan_button = Gtk.Button(icon_name="view-refresh-symbolic", tooltip_text=_("Scan again (Ctrl+R)"))
         self.scan_button.connect("clicked", lambda *_: self.start_scan())
         side_header.pack_start(self.scan_button)
         menu = Gio.Menu()
-        menu.append("About Safe Disk Cleaner", "app.about")
+        menu.append(_("About Safe Disk Cleaner"), "app.about")
         side_header.pack_end(Gtk.MenuButton(icon_name="open-menu-symbolic", menu_model=menu,
-                                            tooltip_text="Main menu"))
+                                            tooltip_text=_("Main menu")))
         sidebar_view.add_top_bar(side_header)
         self.listbox = Gtk.ListBox(selection_mode=Gtk.SelectionMode.SINGLE)
         self.listbox.add_css_class("navigation-sidebar")
@@ -175,12 +177,12 @@ class MainWindow(Adw.ApplicationWindow):
         # ---- content -------------------------------------------------------
         self.content_view = Adw.ToolbarView()
         content_header = Adw.HeaderBar()
-        self.back_button = Gtk.Button(icon_name="go-previous-symbolic", tooltip_text="Back to Overview (Alt+←)",
+        self.back_button = Gtk.Button(icon_name="go-previous-symbolic", tooltip_text=_("Back to Overview (Alt+←)"),
                                       visible=False)
         self.back_button.connect("clicked", lambda *_: self.go_back())
         content_header.pack_start(self.back_button)
         self.content_view.add_top_bar(content_header)
-        self.content_page = Adw.NavigationPage(title="Overview", tag="content", child=self.content_view)
+        self.content_page = Adw.NavigationPage(title=_("Overview"), tag="content", child=self.content_view)
 
         self.split = Adw.NavigationSplitView(sidebar=sidebar_page, content=self.content_page)
         self.split.set_min_sidebar_width(270)
@@ -196,9 +198,9 @@ class MainWindow(Adw.ApplicationWindow):
 
         # ---- bottom bar ----------------------------------------------------
         action_bar = Gtk.ActionBar()
-        self.selection_label = Gtk.Label(label="Nothing selected", xalign=0)
+        self.selection_label = Gtk.Label(label=_("Nothing selected"), xalign=0)
         action_bar.pack_start(self.selection_label)
-        self.clean_button = Gtk.Button(label="Clean Selected…", sensitive=False)
+        self.clean_button = Gtk.Button(label=_("Clean Selected…"), sensitive=False)
         self.clean_button.add_css_class("suggested-action")
         self.clean_button.connect("clicked", lambda *_: self.confirm_clean())
         action_bar.pack_end(self.clean_button)
@@ -219,7 +221,7 @@ class MainWindow(Adw.ApplicationWindow):
     # ------------------------------------------------------------------ sidebar
 
     def _build_sidebar(self) -> None:
-        overview = SidebarRow("overview", "Overview", "drive-harddisk-symbolic")
+        overview = SidebarRow("overview", _("Overview"), "drive-harddisk-symbolic")
         self.rows["overview"] = overview
         self.listbox.append(overview)
         for sid, title, icon, _func in SCANNERS:
@@ -230,7 +232,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _refresh_sidebar(self) -> None:
         total = sum(c.total for c in self.categories.values() if c.available)
-        self.rows["overview"].sub.set_label("Scanning…" if self.scanning else f"{human_size(total)} can be freed")
+        self.rows["overview"].sub.set_label("Scanning…" if self.scanning else _("{arg0} can be freed").format(arg0=(human_size(total))))
         for sid, _t, _i, _f in SCANNERS:
             row = self.rows[sid]
             cat = self.categories.get(sid)
@@ -240,16 +242,16 @@ class MainWindow(Adw.ApplicationWindow):
                 row.set_opacity(1.0)
                 continue
             if not cat.available:
-                row.sub.set_label("Not needed on this system")
+                row.sub.set_label(_("Not needed on this system"))
                 row.set_opacity(0.55)
                 row.set_risk(None)
                 continue
             row.set_opacity(1.0)
             if cat.error:
-                row.sub.set_label("Couldn't scan")
+                row.sub.set_label(_("Couldn't scan"))
                 row.set_risk(None)
                 continue
-            text = human_size(cat.total) if cat.total else "Nothing to clean"
+            text = human_size(cat.total) if cat.total else _("Nothing to clean")
             if cat.total:
                 text += " · " + self._selection_word(cat)
             row.sub.set_label(text)
@@ -338,20 +340,22 @@ class MainWindow(Adw.ApplicationWindow):
     def _selection_word(self, cat: Category) -> str:
         chosen, total = self._selection_state(cat)
         if total == 0 or chosen == 0:
-            return "not selected"
+            return _("not selected")
         if chosen == total:
-            return "all selected"
-        return f"{human_size(self._selected_size(cat))} of it selected"
+            return _("all selected")
+        return _("{arg0} of it selected").format(arg0=(human_size(self._selected_size(cat))))
 
     def _update_selection(self) -> None:
         count = sum(1 for v in self.selected.values() if v)
         size = sum(self._selected_size(c) for c in self.categories.values())
         if count:
-            self.selection_label.set_label(f"Selected: {count} item{'s' if count != 1 else ''} · "
-                                           f"frees about {human_size(size)}")
+            self.selection_label.set_label(ngettext(
+                "Selected: {n} item · frees about {size}",
+                "Selected: {n} items · frees about {size}", count
+            ).format(n=count, size=human_size(size)))
         else:
             self.selection_label.set_label("Scanning…" if self.scanning
-                                           else "Nothing selected — tick what you want to clean")
+                                           else _("Nothing selected — tick what you want to clean"))
         self.clean_button.set_sensitive(count > 0)
         self._refresh_sidebar()
         self._sync_overview()
@@ -404,7 +408,7 @@ class MainWindow(Adw.ApplicationWindow):
         if row is not None and self.listbox.get_selected_row() is not row:
             self.listbox.select_row(row)
         if key == "overview":
-            self.content_page.set_title("Overview")
+            self.content_page.set_title(_("Overview"))
             widget = self._build_overview()
         else:
             self._ov_checks = {}
@@ -430,8 +434,8 @@ class MainWindow(Adw.ApplicationWindow):
         return Gtk.ScrolledWindow(hscrollbar_policy=Gtk.PolicyType.NEVER, child=clamp, vexpand=True), box
 
     def _build_scanning(self, title: str) -> Gtk.Widget:
-        page = Adw.StatusPage(title=f"Scanning {title.lower()}…",
-                              description="Nothing is changed while scanning.")
+        page = Adw.StatusPage(title=_("Scanning {arg0}…").format(arg0=(title.lower())),
+                              description=_("Nothing is changed while scanning."))
         page.set_child(make_spinner())
         return page
 
@@ -449,23 +453,23 @@ class MainWindow(Adw.ApplicationWindow):
         hero = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, halign=Gtk.Align.CENTER)
         if self.scanning and not available:
             hero.append(make_spinner())
-            hero.append(center_label("Looking for wasted space…", "title-2"))
+            hero.append(center_label(_("Looking for wasted space…"), "title-2"))
             box.append(hero)
         else:
             selected = sum(self._selected_size(c) for c in self.categories.values())
-            hero.append(center_label("Selected to clean", "title-4"))
+            hero.append(center_label(_("Selected to clean"), "title-4"))
             big = center_label(human_size(selected), "hero-size")
             self._hero_selected = big
             hero.append(big)
             hero.append(center_label(
-                f"out of {human_size(total)} that could be freed"
-                + (" (still scanning…)" if self.scanning else ""), "dim-label", "hero-caption"))
+                _("out of {arg0} that could be freed").format(arg0=(human_size(total)))
+                + (_(" (still scanning…)") if self.scanning else ""), "dim-label", "hero-caption"))
             buttons = Gtk.Box(spacing=8, halign=Gtk.Align.CENTER, margin_top=10)
-            safe_btn = Gtk.Button(label="Select all Safe items",
-                                  tooltip_text=f"Ticks everything marked Safe ({human_size(safe_total)})")
+            safe_btn = Gtk.Button(label=_("Select all Safe items"),
+                                  tooltip_text=_("Ticks everything marked Safe ({arg0})").format(arg0=(human_size(safe_total))))
             safe_btn.add_css_class("pill")
             safe_btn.connect("clicked", lambda *_: self.select_where(lambda c, i: i.risk is Risk.SAFE))
-            clear_btn = Gtk.Button(label="Unselect everything")
+            clear_btn = Gtk.Button(label=_("Unselect everything"))
             clear_btn.add_css_class("pill")
             clear_btn.connect("clicked", lambda *_: self.select_where(lambda c, i: False))
             buttons.append(safe_btn)
@@ -476,9 +480,9 @@ class MainWindow(Adw.ApplicationWindow):
             # how it works: three numbered steps
             steps = Gtk.Box(spacing=0, homogeneous=True)
             steps.add_css_class("card")
-            for n, text in (("1", "Tick the boxes of what you want to remove"),
-                            ("2", "Click a row to see what it is and pick single items"),
-                            ("3", "Press “Clean Selected…” and confirm")):
+            for n, text in (("1", _("Tick the boxes of what you want to remove")),
+                            ("2", _("Click a row to see what it is and pick single items")),
+                            ("3", _("Press “Clean Selected…” and confirm"))):
                 step = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2, margin_top=12, margin_bottom=12,
                                margin_start=10, margin_end=10)
                 step.append(center_label(n, "step-number", "title-3"))
@@ -490,14 +494,13 @@ class MainWindow(Adw.ApplicationWindow):
         ranked = sorted((c for c in available if c.total > 0), key=lambda c: -c.total)
         if ranked:
             group = Adw.PreferencesGroup(
-                title="What can be cleaned",
-                description="Tick a box to clean that whole category. Click the row itself to open it, read "
-                            "what it is, and choose single items.")
+                title=_("What can be cleaned"),
+                description=_("Tick a box to clean that whole category. Click the row itself to open it, read what it is, and choose single items."))
             biggest = ranked[0].total or 1
             for cat in ranked:
-                row = plain_row(cat.title, activatable=True, tooltip_text=f"Open “{cat.title}”")
+                row = plain_row(cat.title, activatable=True, tooltip_text=_("Open “{arg0}”").format(arg0=(cat.title)))
                 check = Gtk.CheckButton(valign=Gtk.Align.CENTER,
-                                        tooltip_text="Tick to clean this whole category")
+                                        tooltip_text=_("Tick to clean this whole category"))
                 check.connect("toggled", lambda b, c=cat: self._toggle_category(c, b))
                 row.add_prefix(check)
                 row.add_prefix(Gtk.Image(icon_name=cat.icon))
@@ -518,12 +521,11 @@ class MainWindow(Adw.ApplicationWindow):
 
         # disks
         if self.disks:
-            disks = Adw.PreferencesGroup(title="Your disks", description=os_pretty_name())
+            disks = Adw.PreferencesGroup(title=_("Your disks"), description=os_pretty_name())
             for fs in self.disks:
-                name = {"/": "System ( / )", "/home": "Home ( /home )", "/boot": "Boot ( /boot )",
-                        "/boot/efi": "EFI ( /boot/efi )"}.get(fs.mountpoint, fs.mountpoint)
-                row = plain_row(name, f"{human_size(fs.used)} used of {human_size(fs.total)}"
-                                      f" · {human_size(fs.free)} free")
+                name = {"/": _("System ( / )"), "/home": _("Home ( /home )"), "/boot": _("Boot ( /boot )"),
+                        "/boot/efi": _("EFI ( /boot/efi )")}.get(fs.mountpoint, fs.mountpoint)
+                row = plain_row(name, _("{arg0} used of {arg1} · {arg2} free").format(arg0=(human_size(fs.used)), arg1=(human_size(fs.total)), arg2=(human_size(fs.free))))
                 bar = Gtk.LevelBar(min_value=0, max_value=1, value=min(1.0, fs.fraction),
                                    valign=Gtk.Align.CENTER, width_request=160)
                 bar.add_css_class("disk")
@@ -541,25 +543,19 @@ class MainWindow(Adw.ApplicationWindow):
 
         unavailable = [c.title for c in self.categories.values() if not c.available]
         if unavailable:
-            box.append(wrap_label("Not needed on this system: " + ", ".join(unavailable) + ".",
+            box.append(wrap_label(_("Not needed on this system: ") + ", ".join(unavailable) + ".",
                                   "dim-label", "caption"))
 
         # promises
         card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         card.add_css_class("card")
         card.add_css_class("explain-card")
-        card.append(wrap_label("What this app never touches", "explain-heading"))
+        card.append(wrap_label(_("What this app never touches"), "explain-heading"))
         card.append(wrap_label(
-            "• Your personal files — documents, photos, music, downloads, projects.\n"
-            "• App settings, passwords, browser history and bookmarks.\n"
-            "• The kernel you are running, and always one fallback kernel.\n"
-            "• Anything you don't see listed here.\n\n"
-            "Nothing is deleted until you press “Clean Selected…” and confirm. You can see the exact "
-            "commands before they run. Only items marked Safe are selected for you; everything else "
-            "you choose yourself."))
+            _("• Your personal files — documents, photos, music, downloads, projects.\n• App settings, passwords, browser history and bookmarks.\n• The kernel you are running, and always one fallback kernel.\n• Anything you don't see listed here.\n\nNothing is deleted until you press “Clean Selected…” and confirm. You can see the exact commands before they run. Only items marked Safe are selected for you; everything else you choose yourself.")))
         box.append(card)
 
-        legend = Adw.PreferencesGroup(title="What the labels mean")
+        legend = Adw.PreferencesGroup(title=_("What the labels mean"))
         for risk in Risk:
             row = plain_row(risk.label, risk.meaning)
             row.add_prefix(self._dot(risk))
@@ -581,7 +577,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def _build_category(self, cat: Category) -> Gtk.Widget:
         if not cat.available:
-            return Adw.StatusPage(icon_name=cat.icon, title="Not needed on this system",
+            return Adw.StatusPage(icon_name=cat.icon, title=_("Not needed on this system"),
                                   description=cat.unavailable_reason)
         scroller, box = self._page()
 
@@ -592,14 +588,14 @@ class MainWindow(Adw.ApplicationWindow):
         texts = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, hexpand=True)
         texts.append(wrap_label(cat.title, "title-1"))
         meta = Gtk.Box(spacing=10)
-        size_text = (f"{'About ' if cat.size_is_estimate else ''}{human_size(cat.total)} can be freed"
-                     if cat.total else "Nothing to clean right now")
+        size_text = (_("{arg0}{arg1} can be freed").format(arg0=('About ' if cat.size_is_estimate else ''), arg1=(human_size(cat.total)))
+                     if cat.total else _("Nothing to clean right now"))
         meta.append(wrap_label(size_text, "title-4"))
         if cat.total:
             meta.append(risk_badge(cat.risk))
         if cat.needs_admin and cat.total:
             lock = Gtk.Image(icon_name="system-lock-screen-symbolic",
-                             tooltip_text="Needs your password, because these files belong to the system")
+                             tooltip_text=_("Needs your password, because these files belong to the system"))
             lock.add_css_class("dim-label")
             meta.append(lock)
         texts.append(meta)
@@ -615,8 +611,8 @@ class MainWindow(Adw.ApplicationWindow):
         e = cat.explanation
         flow = Gtk.FlowBox(selection_mode=Gtk.SelectionMode.NONE, max_children_per_line=2,
                            min_children_per_line=1, column_spacing=12, row_spacing=12, homogeneous=True)
-        cards = [("What is it?", e.what), ("Why does it get so big?", e.why),
-                 ("Is it safe to delete?", e.safe), ("What this app will do", e.how)]
+        cards = [(_("What is it?"), e.what), (_("Why does it get so big?"), e.why),
+                 (_("Is it safe to delete?"), e.safe), (_("What this app will do"), e.how)]
         for heading, text in cards:
             if not text:
                 continue
@@ -633,7 +629,7 @@ class MainWindow(Adw.ApplicationWindow):
             tip.add_css_class("card")
             tip.add_css_class("notice-card")
             tip.append(Gtk.Image(icon_name="dialog-information-symbolic", valign=Gtk.Align.START))
-            tip.append(wrap_label("Tip: " + e.tip, selectable=True))
+            tip.append(wrap_label(_("Tip: ") + e.tip, selectable=True))
             box.append(tip)
         for line in cat.info:
             box.append(wrap_label(line, "dim-label"))
@@ -641,13 +637,12 @@ class MainWindow(Adw.ApplicationWindow):
         # items
         if cat.items:
             group = Adw.PreferencesGroup(
-                title="Found on this computer",
-                description="Ticked items will be removed when you press “Clean Selected…”. "
-                            "Click a row to tick or untick it.")
+                title=_("Found on this computer"),
+                description=_("Ticked items will be removed when you press “Clean Selected…”. Click a row to tick or untick it."))
             suffix = Gtk.Box(spacing=6, valign=Gtk.Align.END)
-            all_btn = Gtk.Button(label="Select all")
+            all_btn = Gtk.Button(label=_("Select all"))
             all_btn.connect("clicked", lambda *_: self._select_category(cat, True))
-            none_btn = Gtk.Button(label="Unselect all")
+            none_btn = Gtk.Button(label=_("Unselect all"))
             none_btn.connect("clicked", lambda *_: self._select_category(cat, False))
             suffix.append(all_btn)
             suffix.append(none_btn)
@@ -657,9 +652,8 @@ class MainWindow(Adw.ApplicationWindow):
             box.append(group)
 
         if cat.settings:
-            sgroup = Adw.PreferencesGroup(title="Keep it from growing again",
-                                          description="These change a system setting right away when you press "
-                                                      "Apply (needs your password).")
+            sgroup = Adw.PreferencesGroup(title=_("Keep it from growing again"),
+                                          description=_("These change a system setting right away when you press Apply (needs your password)."))
             for setting in cat.settings:
                 sgroup.add(self._setting_row(cat, setting))
             box.append(sgroup)
@@ -720,7 +714,7 @@ class MainWindow(Adw.ApplicationWindow):
         dropdown.set_valign(Gtk.Align.CENTER)
         if setting.current in values:
             dropdown.set_selected(values.index(setting.current))
-        apply = Gtk.Button(label="Apply", valign=Gtk.Align.CENTER)
+        apply = Gtk.Button(label=_("Apply"), valign=Gtk.Align.CENTER)
         apply.connect("clicked", lambda *_: self.apply_setting(cat, setting, values[dropdown.get_selected()]))
         row.add_suffix(dropdown)
         row.add_suffix(apply)
@@ -737,9 +731,9 @@ class MainWindow(Adw.ApplicationWindow):
 
         def done(failures, errors):
             if failures:
-                self.toasts.add_toast(plain_toast(errors[0] if errors else "Could not change the setting", 8))
+                self.toasts.add_toast(plain_toast(errors[0] if errors else _("Could not change the setting"), 8))
             else:
-                self.toasts.add_toast(plain_toast(f"Saved: {setting.title.lower()} → {value}"))
+                self.toasts.add_toast(plain_toast(_("Saved: {arg0} → {arg1}").format(arg0=(setting.title.lower()), arg1=(value))))
                 self.rescan_category(cat.id)
             return False
 
@@ -752,22 +746,23 @@ class MainWindow(Adw.ApplicationWindow):
         by_cat: dict[str, list[int]] = {}
         for entry in plan.entries:
             by_cat.setdefault(entry.category, []).append(entry.size)
-        lines = [f"• {name}: {len(sizes)} item{'s' if len(sizes) != 1 else ''} ({human_size(sum(sizes))})"
+        lines = [ngettext("• {name}: {n} item ({size})", "• {name}: {n} items ({size})", len(sizes))
+                 .format(name=name, n=len(sizes), size=human_size(sum(sizes)))
                  for name, sizes in by_cat.items()]
-        body = "\n".join(lines) + "\n\nThis can't be undone."
+        body = "\n".join(lines) + _("\n\nThis can't be undone.")
         if plan.needs_admin:
-            body += " You'll be asked for your password once."
-        dialog = new_alert(self, f"Free about {human_size(plan.size)}?", body)
+            body += _(" You'll be asked for your password once.")
+        dialog = new_alert(self, _("Free about {arg0}?").format(arg0=(human_size(plan.size))), body)
 
         commands = Gtk.Label(label="\n".join(plan.preview()), xalign=0, yalign=0, selectable=True, wrap=True,
                              wrap_mode=Pango.WrapMode.WORD_CHAR)
         commands.add_css_class("mono")
         scroll = Gtk.ScrolledWindow(child=commands, max_content_height=220, propagate_natural_height=True,
                                     hscrollbar_policy=Gtk.PolicyType.NEVER)
-        expander = Gtk.Expander(label="Show the exact commands", child=scroll)
+        expander = Gtk.Expander(label=_("Show the exact commands"), child=scroll)
         dialog.set_extra_child(expander)
-        dialog.add_response("cancel", "Cancel")
-        dialog.add_response("clean", "Clean")
+        dialog.add_response("cancel", _("Cancel"))
+        dialog.add_response("clean", _("Clean"))
         dialog.set_response_appearance("clean", Adw.ResponseAppearance.DESTRUCTIVE)
         dialog.set_default_response("cancel")
         dialog.set_close_response("cancel")
@@ -811,21 +806,21 @@ class ProgressDialog:
         scroll = Gtk.ScrolledWindow(child=self.view, vexpand=True, min_content_height=260)
         scroll.add_css_class("card")
         content.append(scroll)
-        self.close_button = Gtk.Button(label="Close", sensitive=False, halign=Gtk.Align.END)
+        self.close_button = Gtk.Button(label=_("Close"), sensitive=False, halign=Gtk.Align.END)
         self.close_button.add_css_class("pill")
         self.close_button.connect("clicked", lambda *_: self.close())
         self.dialog: Any
         content.append(self.close_button)
 
         if hasattr(Adw, "Dialog"):
-            self.dialog = Adw.Dialog(title="Cleaning", content_width=640, content_height=460)
+            self.dialog = Adw.Dialog(title=_("Cleaning"), content_width=640, content_height=460)
             view = Adw.ToolbarView(content=content)
             header = Adw.HeaderBar(show_end_title_buttons=False)
             view.add_top_bar(header)
             self.dialog.set_child(view)
             self.dialog.set_can_close(False)
         else:
-            self.dialog = Adw.Window(title="Cleaning", modal=True, transient_for=window,
+            self.dialog = Adw.Window(title=_("Cleaning"), modal=True, transient_for=window,
                                      default_width=640, default_height=460, deletable=False)
             view = Adw.ToolbarView(content=content)
             view.add_top_bar(Adw.HeaderBar(show_end_title_buttons=False))
@@ -847,14 +842,14 @@ class ProgressDialog:
     def finish(self, freed: int, errors: list[str]) -> bool:
         self.spinner.set_visible(False)
         if errors:
-            self.status.set_label(f"Freed {human_size(freed)} — {len(errors)} thing(s) were skipped, see below")
+            self.status.set_label(_("Freed {arg0} — {arg1} thing(s) were skipped, see below").format(arg0=(human_size(freed)), arg1=(len(errors))))
             self.append("")
             for err in errors:
                 self.append("✗ " + err)
         else:
-            self.status.set_label(f"Done — freed {human_size(freed)}")
+            self.status.set_label(_("Done — freed {arg0}").format(arg0=(human_size(freed))))
         self.append("")
-        self.append(f"Free space grew by {human_size(freed)} (measured on your disks).")
+        self.append(_("Free space grew by {arg0} (measured on your disks).").format(arg0=(human_size(freed))))
         self.close_button.set_sensitive(True)
         self.close_button.add_css_class("suggested-action")
         if isinstance(self.dialog, Adw.Window):
@@ -911,15 +906,14 @@ class Application(Adw.Application):
             self.window = MainWindow(self)
             if os.geteuid() == 0:
                 self.window.toasts.add_toast(plain_toast(
-                    "Don't run this app as root — it would clean root's files instead of yours.", 0))
+                    _("Don't run this app as root — it would clean root's files instead of yours."), 0))
         self.window.present()
 
     def on_about(self, *_args) -> None:
         kwargs: dict[str, Any] = dict(application_name=APP_NAME, application_icon=APP_ID, version=VERSION,
                       developer_name="cyb3rl00m", license_type=Gtk.License.MIT_X11, website=WEBSITE,
                       issue_url=WEBSITE + "/issues",
-                      comments="Shows where disk space is wasted on your Linux system and explains, in plain "
-                               "language, what is safe to delete.")
+                      comments=_("Shows where disk space is wasted on your Linux system and explains, in plain language, what is safe to delete."))
         if hasattr(Adw, "AboutDialog"):
             Adw.AboutDialog(**kwargs).present(self.window)
         else:

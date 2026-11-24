@@ -8,6 +8,8 @@ from concurrent.futures import ThreadPoolExecutor
 from .model import Category
 from .scanners import SCANNERS, ScanContext, run_scanner
 from .util import filesystems, human_size, os_pretty_name
+from .i18n import _
+
 
 
 def _wrap(text: str, indent: str = "    ") -> str:
@@ -15,10 +17,9 @@ def _wrap(text: str, indent: str = "    ") -> str:
 
 
 def print_report() -> int:
-    print(f"Safe Disk Cleaner — report for {os_pretty_name()}  (nothing is changed)\n")
+    print(_("Safe Disk Cleaner — report for {arg0}  (nothing is changed)\n").format(arg0=(os_pretty_name())))
     for fs in filesystems():
-        print(f"  {fs.mountpoint:<12} {human_size(fs.used):>9} used of {human_size(fs.total):>9} "
-              f"({int(fs.fraction * 100)}%)")
+        print(_("  {arg0:<12} {arg1:>9} used of {arg2:>9} ({arg3}%)").format(arg0=(fs.mountpoint), arg1=(human_size(fs.used)), arg2=(human_size(fs.total)), arg3=(int(fs.fraction * 100))))
     print()
     ctx = ScanContext.create()
     with ThreadPoolExecutor(max_workers=4) as pool:
@@ -27,17 +28,17 @@ def print_report() -> int:
     for cat in cats:
         print("=" * 100)
         if not cat.available:
-            print(f"{cat.title}: not needed here — {cat.unavailable_reason}")
+            print(_("{arg0}: not needed here — {arg1}").format(arg0=(cat.title), arg1=(cat.unavailable_reason)))
             continue
         total += cat.total
         print(f"{cat.title}: {human_size(cat.total)}  [{cat.risk.label}]")
         if cat.error:
             print(_wrap("ERROR: " + cat.error))
         for w in cat.warnings:
-            print(_wrap("WARNING: " + w))
+            print(_wrap(_("WARNING: ") + w))
         e = cat.explanation
-        for head, text in (("What is it?", e.what), ("Why does it grow?", e.why), ("Safe?", e.safe),
-                           ("What the app does", e.how), ("Tip", e.tip)):
+        for head, text in ((_("What is it?"), e.what), (_("Why does it grow?"), e.why), (_("Safe?"), e.safe),
+                           (_("What the app does"), e.how), (_("Tip"), e.tip)):
             if text:
                 print(f"  {head}")
                 print(_wrap(text))
@@ -51,7 +52,7 @@ def print_report() -> int:
             if item.subtitle:
                 print(_wrap(item.subtitle, "                  "))
         if len(cat.items) > 25:
-            print(f"      … and {len(cat.items) - 25} more")
+            print(_("      … and {arg0} more").format(arg0=(len(cat.items) - 25)))
     print("=" * 100)
-    print(f"Total that could be freed: {human_size(total)}")
+    print(_("Total that could be freed: {arg0}").format(arg0=(human_size(total))))
     return 0

@@ -1,0 +1,1973 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Safe Disk Cleaner package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Safe Disk Cleaner\n"
+"Report-Msgid-Bugs-To: https://github.com/cyb3rl00m/safe-disk-cleaner/issues\n"
+"POT-Creation-Date: 2026-11-24 15:42-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: src/safe_disk_cleaner/cache_info.py:12
+msgid ""
+"Web pages, images and scripts the browser saved so sites load faster. "
+"Logins, bookmarks, history and passwords are NOT stored here. Sites will "
+"load a little slower the first time after cleaning."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:16
+msgid "Firefox web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:17
+msgid "Google Chrome web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:18
+msgid "Chromium web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:19
+msgid "Brave web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:20
+msgid "Vivaldi web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:21
+msgid "Microsoft Edge web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:22
+msgid "Opera web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:23
+msgid "GNOME Web cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:24
+msgid "Thunderbird cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:25
+msgid ""
+"Temporary data from Thunderbird. Your mail is stored elsewhere and is not "
+"touched."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:27
+msgid "Evolution mail cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:28
+msgid ""
+"Evolution keeps OFFLINE COPIES of your mail and calendars here. They will be "
+"re-downloaded from the server, but anything only stored locally could be "
+"lost. Review first."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:31
+msgid "GNOME search index"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:32
+msgid ""
+"The index that lets the Activities search find your files instantly. It is "
+"rebuilt automatically; the computer may be busy for a while afterwards."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:33
+msgid "Font cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:34
+msgid ""
+"A list of installed fonts so programs start quickly. Rebuilt automatically "
+"in seconds."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:36
+msgid "Multimedia plugin registry"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:37
+msgid ""
+"A list of audio/video plugins. Rebuilt automatically the next time media "
+"plays."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:39
+msgid "Input method cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:39
+msgid "Keyboard input method data. Rebuilt automatically."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:40
+msgid "GNOME Software cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:41
+msgid ""
+"App icons, screenshots and update information shown in the Software app. "
+"Downloaded again when needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:42
+msgid "Ubuntu report data"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:42
+msgid "Leftover data from Ubuntu's optional system report."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:43
+msgid "Weather cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:43
+msgid "Recent weather data. Downloaded again."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:44
+msgid "Image library cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:44
+msgid "Speed-up data for GIMP's colour library. Rebuilt automatically."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:45
+msgid "Thumbnailer temp files"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:45
+msgid "Temporary files from making previews."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:46
+msgid "Bluetooth transfer temp files"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:46
+msgid "Temporary files from Bluetooth file transfers."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:47
+msgid "Flatpak temporary data"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:47
+msgid "Temporary data from installing or updating Flatpak apps."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:49
+msgid "Spotify cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:50
+msgid ""
+"Music Spotify streamed recently AND songs you downloaded for offline "
+"listening. Cleaning removes your offline downloads too."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:52
+#: src/safe_disk_cleaner/cache_info.py:55
+msgid "Graphics shader cache (Mesa)"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:53
+#: src/safe_disk_cleaner/cache_info.py:56
+msgid ""
+"Pre-compiled graphics code for games and apps on AMD/Intel GPUs. Deleting it "
+"makes games stutter for a while until shaders are compiled again."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:58
+msgid "Graphics shader cache (AMD)"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:59
+msgid "Pre-compiled shaders for AMD graphics. Rebuilt automatically."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:60
+msgid "Graphics shader cache (NVIDIA)"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:61
+msgid ""
+"Pre-compiled graphics code from the NVIDIA driver. Games may stutter briefly "
+"afterwards."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:63
+msgid "Wine installers cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:64
+msgid ""
+"Downloaded Wine Gecko/Mono installers. Downloaded again if a new Wine prefix "
+"needs them."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:66
+msgid "Winetricks downloads"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:67
+msgid ""
+"Installers Winetricks downloaded (fonts, runtimes). Downloaded again when "
+"needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:69
+msgid "Lutris cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:69
+msgid ""
+"Downloaded installers and banners from Lutris. Downloaded again when needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:72
+msgid "Python pip download cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:73
+msgid ""
+"Python packages pip downloaded before. Installed packages keep working; pip "
+"just downloads again next time."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:74
+msgid "Python uv cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:74
+msgid "Python packages downloaded by uv. Existing environments keep working."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:76
+msgid "Poetry cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:77
+msgid ""
+"Poetry's package cache — and, by default, Poetry's VIRTUAL ENVIRONMENTS for "
+"your projects. They can be recreated with `poetry install`."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:78
+msgid "Go build cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:78
+msgid "Compiled Go code. Rebuilt automatically on the next `go build`."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:80
+msgid "Yarn package cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:80
+msgid "JavaScript packages Yarn downloaded. Downloaded again when needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:82
+msgid "pnpm cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:82
+msgid "JavaScript package metadata. Downloaded again when needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:83
+msgid "node-gyp headers"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:83
+msgid "Node.js headers for building native modules. Re-downloaded."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:85
+msgid "Electron downloads"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:85
+msgid "Electron runtime downloads from development tools."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:86
+msgid "TypeScript type cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:86
+msgid "Downloaded type definitions for editors."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:87
+msgid "Deno cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:87
+msgid "Downloaded Deno modules. Downloaded again when needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:88
+msgid "PHP Composer cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:88
+msgid "Downloaded PHP packages."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:89
+msgid "C/C++ compiler cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:89
+msgid "Speeds up recompiling C/C++ code. Builds are slower once."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:91
+msgid "Compiler cache (sccache)"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:91
+msgid "Speeds up recompiling code. Builds are slower once."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:92
+msgid "Bazel build outputs"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:92
+msgid "Build outputs and downloads of Bazel projects."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:93
+msgid "JetBrains IDE caches"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:94
+msgid ""
+"Indexes and caches of IntelliJ, PyCharm, etc. The IDE re-indexes your "
+"projects (slow the first time). Close the IDE first."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:96
+msgid "VS Code C++ IntelliSense cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:96
+msgid "Rebuilt automatically by VS Code."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:97
+msgid "Playwright test browsers"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:98
+msgid ""
+"Browsers downloaded for automated web testing. Development projects that use "
+"Playwright will need `npx playwright install` again."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:99
+msgid "Hugging Face AI models"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:100
+msgid ""
+"Downloaded AI models and datasets. They can be several GB each and take a "
+"long time to download again."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:101
+msgid "PyTorch model downloads"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:101
+msgid "Downloaded machine-learning models. Re-downloaded when needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:103
+msgid "yay AUR build files"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:103
+#: src/safe_disk_cleaner/cache_info.py:104
+msgid "Build folders from installing AUR packages. Safe to delete."
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:104
+msgid "paru AUR build files"
+msgstr ""
+
+#: src/safe_disk_cleaner/cache_info.py:111
+#, python-brace-format
+msgid ""
+"Temporary data saved by “{name}”. Programs put things here they can rebuild "
+"or re-download, so deleting it is usually harmless — the program may just be "
+"slower the next time it starts. Close it first."
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:70
+#, python-brace-format
+msgid "delete {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:72
+#, python-brace-format
+msgid "delete {arg0} files/folders in {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:141 src/safe_disk_cleaner/helper.py:330
+#, python-brace-format
+msgid "{arg0} is outside {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:144 src/safe_disk_cleaner/helper.py:333
+#, python-brace-format
+msgid "bad path {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:220
+msgid ""
+"pkexec (package “pkexec” or “polkit”) is not installed, so administrator "
+"tasks can't run."
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:230
+msgid "Asking for your password…"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:235
+#, python-brace-format
+msgid "Could not start the helper: {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:274
+msgid ""
+"Administrator tasks were skipped: the password prompt was cancelled or not "
+"allowed."
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:276
+msgid "The helper stopped unexpectedly. "
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:291
+#, python-brace-format
+msgid "→ Deleting {arg0} item(s) in {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:300
+#, python-brace-format
+msgid "   skipped {arg0}: {arg1} is running"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:303 src/safe_disk_cleaner/cleaner.py:306
+#, python-brace-format
+msgid "   skipped {arg0}: the app is running"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:314
+#, python-brace-format
+msgid "   deleted {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/cleaner.py:324
+msgid "Removing your personal Flatpak runtimes failed."
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:56
+#, python-brace-format
+msgid "exit code {arg0}, no error message"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:66
+msgid "could not look up the user who started the app"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:76
+msgid "Flatpak could not list unused runtimes: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:91
+#, python-brace-format
+msgid "{arg0} is not installed"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:120
+#, python-brace-format
+msgid "{arg0} failed (exit code {arg1})"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:130 src/safe_disk_cleaner/helper.py:239
+msgid "unknown package manager"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:170
+msgid "APT could not compute the list of unused packages"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:182
+msgid "no packages given"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:184
+msgid "unknown purpose"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:186
+msgid "kernel cleaning is only supported with APT"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:190
+msgid "invalid package name: {arg0!r}"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:199
+#, python-brace-format
+msgid "{arg0} belongs to the running kernel"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:202
+msgid "no longer safe to remove (system changed since the scan): "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:209
+msgid "APT dry run failed: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:212
+msgid "APT would also remove packages you didn't select: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:220
+msgid "no longer unneeded: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:227
+msgid "no longer orphaned: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:231
+msgid "pacman's dry run failed: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:234
+msgid "pacman would also remove packages you didn't select: "
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:249
+msgid "invalid snap name or revision"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:253
+#, python-brace-format
+msgid "{arg0} revision {arg1} is not a disabled (old) revision anymore"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:260
+msgid "refresh.retain must be 2 or 3"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:271
+msgid "unsupported journal size"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:278
+msgid "unsupported journal limit"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:282
+#, python-brace-format
+msgid "Removed {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:288
+#, python-brace-format
+msgid ""
+"# Written by Safe Disk Cleaner. Delete this file to go back to the default.\n"
+"[Journal]\n"
+"SystemMaxUse={arg0}\n"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:290
+#, python-brace-format
+msgid "Wrote SystemMaxUse={arg0} to {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:291
+msgid "restarting systemd-journald"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:301
+msgid "no runtimes given"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:304
+msgid "invalid runtime reference: {arg0!r}"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:314
+#, python-brace-format
+msgid "Skipping {arg0}: Flatpak no longer reports it as unused"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:326
+msgid "unknown file group"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:335
+#, python-brace-format
+msgid "{arg0} is in a sub-folder"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:337
+msgid "the journal is cleaned with journalctl, not by deleting files"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:339
+#, python-brace-format
+msgid "{arg0} does not look like a file this app may delete"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:350
+#, python-brace-format
+msgid "{arg0} is not a regular file"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:352
+#, python-brace-format
+msgid "{arg0} was changed in the last hour — it may still be in use"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:362
+msgid "no files given"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:366
+msgid "bad path"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:373
+#, python-brace-format
+msgid "Skipped {arg0}: {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:374
+#, python-brace-format
+msgid "Deleted {arg0} files"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:376
+msgid "no files could be deleted"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:393
+msgid "The helper must be started as root (through pkexec)."
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:403
+msgid "Request too large"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:409
+msgid "operations must be a list"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:411
+msgid "Malformed request"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:426
+msgid "unknown operation {arg0!r}"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:428
+msgid "operation must be an object"
+msgstr ""
+
+#: src/safe_disk_cleaner/helper.py:433
+#, python-brace-format
+msgid "Not done, for safety: {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/main.py:12
+#, python-brace-format
+msgid ""
+"{arg0} {arg1}\n"
+"\n"
+"Usage:\n"
+"  safe-disk-cleaner            open the app\n"
+"  safe-disk-cleaner --report   scan and print what could be cleaned (changes "
+"nothing)\n"
+"  safe-disk-cleaner --version\n"
+msgstr ""
+
+#: src/safe_disk_cleaner/main.py:32
+#, python-brace-format
+msgid ""
+"{arg0} needs GTK 4 and libadwaita for Python ({arg1}).\n"
+"On Ubuntu/Debian:  sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1\n"
+"On Fedora:         sudo dnf install python3-gobject gtk4 libadwaita\n"
+"On Arch:           sudo pacman -S python-gobject gtk4 libadwaita"
+msgstr ""
+
+#: src/safe_disk_cleaner/model.py:12
+msgid "Safe"
+msgstr ""
+
+#: src/safe_disk_cleaner/model.py:13
+msgid ""
+"Nothing you need is lost. The system recreates or re-downloads it if it is "
+"ever needed again."
+msgstr ""
+
+#: src/safe_disk_cleaner/model.py:14
+msgid "Usually safe"
+msgstr ""
+
+#: src/safe_disk_cleaner/model.py:15
+msgid ""
+"Nothing personal is lost, but something will be slower or need re-"
+"downloading the next time."
+msgstr ""
+
+#: src/safe_disk_cleaner/model.py:16
+msgid "Review first"
+msgstr ""
+
+#: src/safe_disk_cleaner/model.py:17
+msgid ""
+"Could contain something you still want. Look through the list before "
+"cleaning."
+msgstr ""
+
+#: src/safe_disk_cleaner/policy.py:222
+msgid "paccache -rk2   (keeps the 2 newest versions of each package)"
+msgstr ""
+
+#: src/safe_disk_cleaner/policy.py:223
+msgid "paccache -ruk0  (removes cached packages that are not installed)"
+msgstr ""
+
+#: src/safe_disk_cleaner/policy.py:256
+#, python-brace-format
+msgid "… and {arg0} more files"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:20
+#, python-brace-format
+msgid "Safe Disk Cleaner — report for {arg0}  (nothing is changed)\n"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:22
+#, python-brace-format
+msgid "  {arg0:<12} {arg1:>9} used of {arg2:>9} ({arg3}%)"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:31
+#, python-brace-format
+msgid "{arg0}: not needed here — {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:38
+msgid "WARNING: "
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:40 src/safe_disk_cleaner/window.py:614
+msgid "What is it?"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:40
+msgid "Why does it grow?"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:40
+msgid "Safe?"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:41
+msgid "What the app does"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:41
+msgid "Tip"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:55
+#, python-brace-format
+msgid "      … and {arg0} more"
+msgstr ""
+
+#: src/safe_disk_cleaner/report.py:57
+#, python-brace-format
+msgid "Total that could be freed: {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:46
+msgid "%d %b %Y"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:52
+msgid "today"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:54
+msgid "yesterday"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:56
+#, python-brace-format
+msgid "{arg0} days ago"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:73
+msgid ""
+"The kernel is the core of Linux. A kernel update does not replace the old "
+"kernel — it installs a complete new one next to it, so you can still start "
+"the previous version from the boot menu if the new one causes problems."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:74
+msgid ""
+"Every kernel update adds roughly 300–500 MB (the kernel, its drivers and "
+"headers). Old ones are only removed when someone runs “apt autoremove”, so "
+"they pile up. On computers with a separate /boot partition they can even "
+"fill it up and make updates fail."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:75
+msgid ""
+"Yes, because of two rules this app always follows: it never touches the "
+"kernel you are running right now, and it always keeps at least two kernels — "
+"the newest one plus one fallback. Only versions older than those are offered."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:76
+msgid ""
+"Removes all packages of the selected kernel versions with “apt-get purge”. "
+"First it asks APT for a dry run, and if APT would remove anything else than "
+"what you see here, it stops."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:77
+msgid ""
+"After a kernel update, restart your computer before cleaning so the new "
+"kernel is the one in use."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:82 src/safe_disk_cleaner/scanners.py:1030
+msgid "Old kernels"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:86
+msgid ""
+"Only needed on Debian/Ubuntu-based systems. Fedora keeps just the 3 newest "
+"kernels automatically, and Arch keeps only one."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:90
+msgid "Could not read the list of installed packages (dpkg-query failed)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:113
+msgid "running now"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:115
+msgid "newest"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:117
+msgid "on hold"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:119
+msgid "fallback"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:122
+msgid "Always kept: "
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:122
+msgid ""
+". If you deliberately keep an older kernel as a backup, untick it below — or "
+"protect it for good with “sudo apt-mark hold linux-image-<version>-generic”."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:125
+#, python-brace-format
+msgid ""
+"A newer kernel ({arg0}) is installed, but you are still running {arg1}. "
+"Restart the computer, then scan again — you will probably be able to remove "
+"one more kernel."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:132
+#, python-brace-format
+msgid "Linux kernel {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:133
+#, python-brace-format
+msgid "{arg0} packages: "
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:144
+#, python-brace-format
+msgid ""
+"Your /boot partition is {arg0}% full. Old kernels are the usual cause, and a "
+"full /boot makes kernel updates fail."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:165
+#, python-brace-format
+msgid ""
+"Before {arg0} installs or updates software, it downloads the package files "
+"and keeps a copy in {arg1}."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:166
+msgid ""
+"Once the software is installed these copies are not needed anymore, but some "
+"update tools keep them until somebody cleans up. After months of updates "
+"this can reach hundreds of MB or more."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:167
+msgid ""
+"Yes. Your installed programs never use these files. The only downside: if "
+"you reinstall the exact same version of something, it is downloaded again."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:168
+#, python-brace-format
+msgid "Runs “{arg0}”."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:170 src/safe_disk_cleaner/scanners.py:1031
+msgid "Downloaded update files"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:174
+msgid "No supported package manager (APT, DNF, pacman, zypper) was found."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:182
+#, python-brace-format
+msgid "{n} downloaded package file (.deb)"
+msgid_plural "{n} downloaded package files (.deb)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/safe_disk_cleaner/scanners.py:186
+msgid " + APT's quick-lookup files (rebuilt automatically)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:195
+#, python-brace-format
+msgid "{arg0} downloaded package files (.rpm)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:200 src/safe_disk_cleaner/scanners.py:218
+msgid "Downloaded package files"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:202
+msgid ""
+"Install “pacman-contrib” (it provides paccache) so old packages can be "
+"removed safely while keeping the newest versions for downgrades."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:211
+msgid ""
+"Older versions of packages (the 2 newest of each are kept for downgrades)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:222
+msgid "The download cache is already empty."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:253
+msgid ""
+"Packages that were installed automatically because another program needed "
+"them — libraries and helpers. The program that needed them has since been "
+"removed or doesn't need them anymore."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:254
+msgid ""
+"When you uninstall a program, the extra packages it pulled in stay behind "
+"until someone removes them (“apt autoremove”)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:255
+msgid ""
+"Usually. Nothing you installed yourself is in this list — only things the "
+"package manager installed as dependencies and now considers orphaned. "
+"Rarely, you use one of them directly (for example a command-line tool); if "
+"you recognise something you use, leave it unchecked."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:256
+msgid ""
+"Removes exactly the selected packages. On APT systems it first does a dry "
+"run and stops if APT would remove anything that is not in your selection."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:257
+msgid ""
+"To keep a package that shows up here for good, mark it as installed by you: "
+"sudo apt-mark manual <package>"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:272 src/safe_disk_cleaner/scanners.py:1032
+msgid "Packages no longer needed"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:280
+msgid "APT could not be asked which packages are unused."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:298
+msgid ""
+"Old kernels that APT would also remove are listed under “Old kernels” "
+"instead."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:328
+msgid "No supported package manager (APT, DNF, pacman) was found."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:335
+#, python-brace-format
+msgid "{arg0} packages"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:337
+#, python-brace-format
+msgid ""
+"This list looks unusual ({arg0}). That normally happens after a “meta-"
+"package” such as ubuntu-desktop was removed: the package manager then thinks "
+"everything it brought in is no longer needed. Do NOT clean this unless you "
+"know why it happened. To keep packages, run: sudo apt-mark manual <package>"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:343
+msgid "No description"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:347
+msgid "Important system package — keep it unless you are sure."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:352
+msgid "No orphaned packages — nothing to remove."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:361
+msgid ""
+"Snap apps (on Ubuntu for example Firefox, Thunderbird and the Snap Store) "
+"are stored as compressed images. When a snap updates, the previous version "
+"is kept on disk — disabled — so you can go back with “snap revert” if the "
+"update breaks something."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:362
+msgid ""
+"snapd keeps 2 versions of every snap by default (3 on some systems). Big "
+"snaps such as GNOME platform runtimes, browsers or Steam waste hundreds of "
+"MB per old version."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:363
+msgid ""
+"Yes. Only DISABLED versions are listed — they are not running and not used "
+"by anything. You only lose the option to roll back to that exact version "
+"(together with that old version's data snapshot)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:364
+msgid ""
+"Runs “snap remove <name> --revision=<number>” for each selected old version."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:365
+msgid ""
+"Below you can choose how many versions snapd keeps from now on. 2 is the "
+"lowest value snapd allows (the current one plus one to roll back to)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:370 src/safe_disk_cleaner/scanners.py:1033
+msgid "Old Snap versions"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:374
+msgid "Snap is not installed on this system."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:378
+msgid "No snaps are installed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:381
+msgid "Could not talk to snapd (is the snapd service running?)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:392
+#, python-brace-format
+msgid "{arg0} — old version {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:393
+#, python-brace-format
+msgid "Revision {arg0} · disabled, only kept so you could roll back"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:400
+msgid "No old snap versions are stored."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:407
+msgid "Versions snapd keeps of each snap"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:408 src/safe_disk_cleaner/scanners.py:616
+#, python-brace-format
+msgid "Currently: {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:409
+msgid "2 — current + 1 to roll back (smallest)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:409
+msgid "3 versions"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:419
+msgid ""
+"Flatpak apps don't use your system's libraries. They run on shared "
+"“runtimes” (for example GNOME 48, KDE 6 or Freedesktop 24.08), plus extras "
+"such as translations and graphics drivers. When your apps move to a newer "
+"runtime, the old one is left behind."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:420
+msgid ""
+"Runtimes are big — often 300 MB to 1 GB each — and Flatpak doesn't remove "
+"the old ones by itself."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:421
+msgid ""
+"Yes. The list comes from Flatpak itself (the same check as “flatpak "
+"uninstall --unused”): only runtimes and extensions that no installed app "
+"needs. Pinned runtimes are never included. Sizes are Flatpak's own numbers; "
+"because Flatpak shares identical files between runtimes, the space actually "
+"freed can be a little smaller."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:422
+msgid ""
+"Runs “flatpak uninstall --noninteractive <runtime>” for each selected "
+"runtime. System-wide runtimes need your password, your personal ones don't. "
+"Before removing, the list is checked again."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:430
+msgid "Graphics driver for Flatpak apps"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:432
+msgid "Debugging symbols (for developers)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:434
+msgid "Developer kit (for building apps)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:436
+msgid "Audio/video codecs"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:438
+msgid "Shared runtime"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:439
+msgid "Runtime extension"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:488 src/safe_disk_cleaner/scanners.py:1034
+msgid "Unused Flatpak runtimes"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:492
+msgid "Flatpak is not installed on this system."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:500
+msgid "your user only"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:509
+#, python-brace-format
+msgid "{arg0} · installed {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:512
+msgid "Every installed Flatpak runtime is used by an app."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:521
+msgid ""
+"The systemd journal is the system log: messages from the kernel, services "
+"and apps — the thing you read with “journalctl” when troubleshooting crashes "
+"or errors."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:522
+msgid ""
+"By default the journal may use up to 10% of the disk (at most 4 GB) and "
+"keeps months of history. A service that logs errors over and over can fill "
+"it quickly."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:523
+msgid ""
+"Yes. Only the OLDEST archived log files are deleted until the journal is "
+"down to the size you pick. Recent logs — including everything from the "
+"current boot — are always kept. If you are investigating a problem from "
+"weeks ago, choose a bigger size or wait."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:524
+msgid "Runs “journalctl --vacuum-size=<size>”."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:525
+msgid ""
+"Set a permanent size limit below, so the journal never grows this big again."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:584 src/safe_disk_cleaner/scanners.py:1035
+msgid "System journal (logs)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:588
+msgid "This system does not run systemd-journald."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:595
+#, python-brace-format
+msgid "The journal uses {arg0} and goes back to {arg1}."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:600
+#, python-brace-format
+msgid "Keep the newest {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:605
+msgid "Old entries in the system journal"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:606
+#, python-brace-format
+msgid "{arg0} archived log files; the newest logs are always kept"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:611
+msgid "The journal is already small."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:615
+msgid "Currently: system default (10% of the disk, at most 4 GB)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:616
+msgid " (set by your system configuration)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:618
+msgid "Maximum journal size"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:619
+msgid "500 MB (recommended)"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:620
+msgid "System default"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:630
+msgid ""
+"When a program crashes, Linux saves a snapshot of its memory (a “core "
+"dump”), and Ubuntu's crash reporter Apport writes a crash report. Developers "
+"and crash-report tools use them to find out why the crash happened."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:631
+msgid ""
+"Each crash can leave tens or hundreds of MB, and they are cleaned up only "
+"slowly (or never). A program that keeps crashing can fill the disk."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:632
+msgid ""
+"Yes. They are only useful for diagnosing a crash. If you are trying to fix a "
+"crash right now, look at the newest ones first (for example with "
+"“coredumpctl list” or a crash report viewer), then clean."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:633
+msgid ""
+"Deletes the selected files from /var/crash and /var/lib/systemd/coredump. "
+"They belong to the system, so your password is needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:638 src/safe_disk_cleaner/scanners.py:1036
+msgid "Crash reports & core dumps"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:649
+#, python-brace-format
+msgid "Crash report for {arg0} · {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:660
+#, python-brace-format
+msgid "Core dump (memory snapshot) · {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:665
+msgid "No crash reports or core dumps are stored."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:681
+msgid ""
+"Classic text logs in /var/log (syslog, kern.log, auth.log, dpkg.log …). "
+"Every week or so a tool called logrotate renames the current log to “.1” and "
+"compresses older ones (“.2.gz”, “.3.gz” …)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:682
+msgid ""
+"Old copies are kept for several weeks. Usually small, but a noisy program "
+"can create big ones."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:683
+msgid ""
+"Yes. Only old, rotated copies are deleted. The current log files that are "
+"still being written to are never touched."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:684
+msgid ""
+"Deletes old copies such as syslog.1, kern.log.2.gz or messages-20261001 "
+"from /var/log."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:689 src/safe_disk_cleaner/scanners.py:1037
+msgid "Old log files"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:708
+msgid "Old, rotated log files"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:709
+#, python-brace-format
+msgid "{n} file in /var/log"
+msgid_plural "{n} files in /var/log"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/safe_disk_cleaner/scanners.py:714
+msgid "No old log copies were found."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:717
+#, python-brace-format
+msgid ""
+"{arg0} log folders can only be read by the administrator, so a few files may "
+"not be counted."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:726
+msgid ""
+"Small preview pictures that your file manager and image viewers create for "
+"photos, videos and documents, so folders can show previews instantly. They "
+"live in ~/.cache/thumbnails."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:727
+msgid ""
+"Previews are never cleaned up automatically — not even when you delete the "
+"original file. After years of photos, downloads and USB sticks, this folder "
+"can grow to several GB."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:728
+msgid ""
+"Yes. This app reads every preview to find out which file it belongs to, so "
+"it can delete only the previews of files that no longer exist and keep the "
+"useful ones. Previews of files on USB drives that aren't plugged in right "
+"now are kept."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:729
+msgid ""
+"Deletes the selected preview images from ~/.cache/thumbnails. No password "
+"needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:788 src/safe_disk_cleaner/scanners.py:1038
+msgid "Picture previews"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:820
+msgid "Previews of files that no longer exist"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:821
+#, python-brace-format
+msgid "{arg0} previews of deleted or moved files — useless now"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:826
+msgid "All other previews"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:827
+#, python-brace-format
+msgid ""
+"{arg0} previews of files you still have. Your file manager recreates them as "
+"you browse — photo folders will be slow to show previews at first"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:831
+#, python-brace-format
+msgid ""
+"{arg0} previews belong to drives that aren't plugged in; they are kept as "
+"“other previews”."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:833
+msgid "There are no stored previews."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:842
+msgid ""
+"~/.cache is the folder where programs keep temporary data they can rebuild: "
+"downloads, compiled shaders, web caches, search indexes. Your documents, "
+"photos and settings are never stored here."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:843
+msgid ""
+"Programs may fill it freely, and many never clean up after themselves. "
+"Programs you uninstalled often leave their cache behind forever."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:844
+msgid ""
+"Usually. Every folder is explained below and has its own risk label. In the "
+"worst case a program is slower the first time or downloads something again. "
+"Programs that are running right now are locked, so you can't break them "
+"while they're in use."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:845
+msgid "Deletes the selected folders inside ~/.cache. No password needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:852 src/safe_disk_cleaner/scanners.py:1039
+msgid "App caches in your home"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:875
+#, python-brace-format
+msgid "“{arg0}” is running — close it, then scan again."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:879
+#, python-brace-format
+msgid "{arg0} small folders (under 1 MB each) are not listed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:888
+msgid ""
+"Apps installed as Flatpak or Snap are sandboxed, so they keep their own "
+"private cache instead of using ~/.cache — Flatpak apps in ~/.var/app/<app>/"
+"cache, Snap apps in ~/snap/<app>/common/.cache."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:889
+msgid "Just like normal caches, nothing cleans them up automatically."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:890
+msgid ""
+"Usually. Same as other caches: the app may be a bit slower the first time "
+"afterwards. Your settings and files of these apps are stored elsewhere and "
+"are not touched. Running apps are locked."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:891
+msgid "Deletes the cache folder of each selected app. No password needed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:896 src/safe_disk_cleaner/scanners.py:1040
+msgid "Flatpak & Snap app caches"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:913
+#, python-brace-format
+msgid "Flatpak app {arg0} · ~/.var/app/{arg1}/cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:916 src/safe_disk_cleaner/scanners.py:936
+#, python-brace-format
+msgid "{arg0} is running — close it, then scan again."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:933
+#, python-brace-format
+msgid "Snap app · ~/snap/{arg0}/common/.cache"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:941
+msgid "No Flatpak or Snap apps have stored anything in your home folder."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:943
+#, python-brace-format
+msgid "{arg0} apps with caches under 1 MB are not listed."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:952
+msgid ""
+"Files you delete in the file manager aren't really gone — they are moved to "
+"the Trash so you can restore them."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:953
+msgid ""
+"The Trash only empties when you empty it. Deleted videos, downloads and ISO "
+"files can quietly take many GB."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:954
+msgid ""
+"Review first: once emptied, these files can't be restored. Each item shows "
+"where it came from and when you deleted it."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:955
+msgid ""
+"Permanently deletes the selected items from your Trash (including Trash "
+"folders on other drives)."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:970 src/safe_disk_cleaner/scanners.py:1041
+msgid "Trash"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:993
+msgid "unknown location"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:996
+#, python-brace-format
+msgid "From {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:996
+#, python-brace-format
+msgid " · deleted {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:1003
+msgid "Half-deleted leftovers"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:1004
+msgid "Files the file manager started to delete but didn't finish"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:1017
+#, python-brace-format
+msgid "{arg0} smaller items"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:1018
+msgid "Everything else in the Trash"
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:1023
+msgid "The Trash is empty."
+msgstr ""
+
+#: src/safe_disk_cleaner/scanners.py:1052
+#, python-brace-format
+msgid "Scanning failed: {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/util.py:24
+#, python-brace-format
+msgid "{n} byte"
+msgid_plural "{n} bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/safe_disk_cleaner/window.py:162
+msgid "Scan again (Ctrl+R)"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:166
+msgid "About Safe Disk Cleaner"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:168
+msgid "Main menu"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:180
+msgid "Back to Overview (Alt+←)"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:185 src/safe_disk_cleaner/window.py:224
+#: src/safe_disk_cleaner/window.py:411
+msgid "Overview"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:201
+msgid "Nothing selected"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:203
+msgid "Clean Selected…"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:235
+#, python-brace-format
+msgid "{arg0} can be freed"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:245 src/safe_disk_cleaner/window.py:580
+msgid "Not needed on this system"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:251
+msgid "Couldn't scan"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:254
+msgid "Nothing to clean"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:343
+msgid "not selected"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:345
+msgid "all selected"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:346
+#, python-brace-format
+msgid "{arg0} of it selected"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:353
+#, python-brace-format
+msgid "Selected: {n} item · frees about {size}"
+msgid_plural "Selected: {n} items · frees about {size}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/safe_disk_cleaner/window.py:358
+msgid "Nothing selected — tick what you want to clean"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:437
+#, python-brace-format
+msgid "Scanning {arg0}…"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:438
+msgid "Nothing is changed while scanning."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:456
+msgid "Looking for wasted space…"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:460
+msgid "Selected to clean"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:465
+#, python-brace-format
+msgid "out of {arg0} that could be freed"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:466
+msgid " (still scanning…)"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:468
+msgid "Select all Safe items"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:469
+#, python-brace-format
+msgid "Ticks everything marked Safe ({arg0})"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:472
+msgid "Unselect everything"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:483
+msgid "Tick the boxes of what you want to remove"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:484
+msgid "Click a row to see what it is and pick single items"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:485
+msgid "Press “Clean Selected…” and confirm"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:497
+msgid "What can be cleaned"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:498
+msgid ""
+"Tick a box to clean that whole category. Click the row itself to open it, "
+"read what it is, and choose single items."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:501
+#, python-brace-format
+msgid "Open “{arg0}”"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:503
+msgid "Tick to clean this whole category"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:524
+msgid "Your disks"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:526
+msgid "System ( / )"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:526
+msgid "Home ( /home )"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:526
+msgid "Boot ( /boot )"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:527
+msgid "EFI ( /boot/efi )"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:528
+#, python-brace-format
+msgid "{arg0} used of {arg1} · {arg2} free"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:546
+msgid "Not needed on this system: "
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:553
+msgid "What this app never touches"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:555
+msgid ""
+"• Your personal files — documents, photos, music, downloads, projects.\n"
+"• App settings, passwords, browser history and bookmarks.\n"
+"• The kernel you are running, and always one fallback kernel.\n"
+"• Anything you don't see listed here.\n"
+"\n"
+"Nothing is deleted until you press “Clean Selected…” and confirm. You can "
+"see the exact commands before they run. Only items marked Safe are selected "
+"for you; everything else you choose yourself."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:558
+msgid "What the labels mean"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:591
+#, python-brace-format
+msgid "{arg0}{arg1} can be freed"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:592
+msgid "Nothing to clean right now"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:598
+msgid "Needs your password, because these files belong to the system"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:614
+msgid "Why does it get so big?"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:615
+msgid "Is it safe to delete?"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:615
+msgid "What this app will do"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:632
+msgid "Tip: "
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:640
+msgid "Found on this computer"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:641
+msgid ""
+"Ticked items will be removed when you press “Clean Selected…”. Click a row "
+"to tick or untick it."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:643
+msgid "Select all"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:645
+msgid "Unselect all"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:655
+msgid "Keep it from growing again"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:656
+msgid ""
+"These change a system setting right away when you press Apply (needs your "
+"password)."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:717
+msgid "Apply"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:734
+msgid "Could not change the setting"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:736
+#, python-brace-format
+msgid "Saved: {arg0} → {arg1}"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:749
+#, python-brace-format
+msgid "• {name}: {n} item ({size})"
+msgid_plural "• {name}: {n} items ({size})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/safe_disk_cleaner/window.py:752
+msgid ""
+"\n"
+"\n"
+"This can't be undone."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:754
+msgid " You'll be asked for your password once."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:755
+#, python-brace-format
+msgid "Free about {arg0}?"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:762
+msgid "Show the exact commands"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:764
+msgid "Cancel"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:765
+msgid "Clean"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:809
+msgid "Close"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:816 src/safe_disk_cleaner/window.py:823
+msgid "Cleaning"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:845
+#, python-brace-format
+msgid "Freed {arg0} — {arg1} thing(s) were skipped, see below"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:850
+#, python-brace-format
+msgid "Done — freed {arg0}"
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:852
+#, python-brace-format
+msgid "Free space grew by {arg0} (measured on your disks)."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:909
+msgid ""
+"Don't run this app as root — it would clean root's files instead of yours."
+msgstr ""
+
+#: src/safe_disk_cleaner/window.py:916
+msgid ""
+"Shows where disk space is wasted on your Linux system and explains, in plain "
+"language, what is safe to delete."
+msgstr ""
