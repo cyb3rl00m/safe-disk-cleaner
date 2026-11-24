@@ -388,6 +388,18 @@ OPERATIONS = {
 }
 
 
+def _request_language(request: object) -> str | None:
+    """The language for helper messages, if the request names a sane one.
+
+    The helper runs as root and must not build a catalogue path from arbitrary
+    text, so only a plain language tag is accepted.
+    """
+    lang = request.get("lang") if isinstance(request, dict) else None
+    if isinstance(lang, str) and re.fullmatch(r"[a-z]{2,3}(?:_[A-Z]{2})?", lang):
+        return lang
+    return None
+
+
 def main() -> int:
     if os.geteuid() != 0:
         emit(event="fatal", error=_("The helper must be started as root (through pkexec)."))
@@ -413,8 +425,8 @@ def main() -> int:
 
     # The app passes its language in the request: pkexec clears the environment,
     # and the helper needs C locale for the commands it runs.
-    lang = request.get("lang") if isinstance(request, dict) else None
-    install(languages=[lang] if isinstance(lang, str) and lang else None)
+    lang = _request_language(request)
+    install(languages=[lang] if lang else None)
 
     failures = 0
     for index, op in enumerate(ops):

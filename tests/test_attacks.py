@@ -141,6 +141,17 @@ class FuzzHelper(unittest.TestCase):
             self.assertTrue(os.path.exists(path), f"{path} was deleted!")
         self.assertGreater(total_ops, 1000)
 
+    def test_request_language_is_validated(self):
+        # The helper runs as root: never turn arbitrary request text into a
+        # catalogue path.
+        for bad in ["../../etc", "/etc", "es/../../..", "es_AR/../..", "", "C", "e", "esss",
+                    "es;rm", "es AR", "es\n", 5, None, True, ["es"], {"x": "es"}]:
+            self.assertIsNone(helper._request_language({"lang": bad}), bad)
+        self.assertIsNone(helper._request_language("es"))
+        self.assertIsNone(helper._request_language(None))
+        self.assertEqual(helper._request_language({"lang": "es"}), "es")
+        self.assertEqual(helper._request_language({"lang": "pt_BR"}), "pt_BR")
+
     def test_malformed_requests(self):
         for raw in ["", "null", "[]", "{}", '{"operations": "rm -rf /"}', '{"operations": [1, "x", null]}',
                     "{" * 10000, '{"operations": [{"op": "delete-files", "paths": [null]}]}']:
