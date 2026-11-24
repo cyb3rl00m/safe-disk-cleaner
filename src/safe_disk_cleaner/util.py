@@ -10,6 +10,7 @@ import subprocess
 from dataclasses import dataclass
 
 from . import APP_ID
+from .i18n import ngettext
 
 C_ENV = {"LC_ALL": "C", "LANG": "C", "LANGUAGE": "C"}
 
@@ -20,7 +21,7 @@ def human_size(n: int | float | None) -> str:
         return "?"
     n = float(n)
     if n < 1000:
-        return f"{int(n)} bytes" if n != 1 else "1 byte"
+        return ngettext("{n} byte", "{n} bytes", int(n)).format(n=int(n))
     for unit in ("kB", "MB", "GB", "TB"):
         n /= 1000.0
         if n < 1000 or unit == "TB":

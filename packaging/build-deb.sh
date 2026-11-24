@@ -17,6 +17,7 @@ echo "==> Building $PKG $VERSION"
 # --- files (same layout as install.sh) -------------------------------------
 install -d "$STAGE/usr/lib/safe-disk-cleaner/safe_disk_cleaner"
 install -m 644 "$ROOT"/src/safe_disk_cleaner/*.py "$STAGE/usr/lib/safe-disk-cleaner/safe_disk_cleaner/"
+cp -a "$ROOT/src/safe_disk_cleaner/locale" "$STAGE/usr/lib/safe-disk-cleaner/safe_disk_cleaner/"
 install -D -m 755 "$ROOT/helper/safe-disk-cleaner-helper" "$STAGE/usr/libexec/safe-disk-cleaner-helper"
 install -D -m 755 "$ROOT/safe-disk-cleaner"               "$STAGE/usr/bin/safe-disk-cleaner"
 install -D -m 644 "$ROOT/data/$APP_ID.policy"             "$STAGE/usr/share/polkit-1/actions/$APP_ID.policy"

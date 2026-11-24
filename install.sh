@@ -67,6 +67,7 @@ echo "==> Copying files to $PREFIX"
 remove_from "$PREFIX"
 install -d -m 755 "$PREFIX/lib/safe-disk-cleaner/safe_disk_cleaner"
 install -m 644 "$SRC"/src/safe_disk_cleaner/*.py "$PREFIX/lib/safe-disk-cleaner/safe_disk_cleaner/"
+cp -a "$SRC/src/safe_disk_cleaner/locale" "$PREFIX/lib/safe-disk-cleaner/safe_disk_cleaner/"
 python3 -m compileall -q "$PREFIX/lib/safe-disk-cleaner" >/dev/null || true
 
 install -D -m 755 "$SRC/helper/safe-disk-cleaner-helper" "$PREFIX/libexec/safe-disk-cleaner-helper"

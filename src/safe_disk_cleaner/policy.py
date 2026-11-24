@@ -8,6 +8,8 @@ decide what to *offer*, the helper re-checks them before it *deletes*.
 from __future__ import annotations
 
 import re
+from .i18n import _
+
 
 # --------------------------------------------------------------------------
 # Name / value validators
@@ -217,8 +219,8 @@ def preview_op(op: dict) -> list[str]:
         options: dict[str, list[str]] = {
             "apt": ["apt-get clean"],
             "dnf": ["dnf clean packages"],
-            "pacman": ["paccache -rk2   (keeps the 2 newest versions of each package)",
-                       "paccache -ruk0  (removes cached packages that are not installed)"],
+            "pacman": [_("paccache -rk2   (keeps the 2 newest versions of each package)"),
+                       _("paccache -ruk0  (removes cached packages that are not installed)")],
             "zypper": ["zypper --non-interactive clean"],
         }
         return options.get(str(mgr), [])
@@ -251,5 +253,5 @@ def preview_op(op: dict) -> list[str]:
         paths = op.get("paths", [])
         if len(paths) <= 6:
             return [f"rm {p}" for p in paths]
-        return [f"rm {p}" for p in paths[:5]] + [f"… and {len(paths) - 5} more files"]
+        return [f"rm {p}" for p in paths[:5]] + [_("… and {arg0} more files").format(arg0=(len(paths) - 5))]
     return [str(op)]

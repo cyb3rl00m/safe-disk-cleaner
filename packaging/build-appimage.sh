@@ -46,6 +46,7 @@ echo "==> Building $NAME"
 
 install -d "$APPDIR/usr/lib/safe-disk-cleaner/safe_disk_cleaner"
 install -m 644 "$ROOT"/src/safe_disk_cleaner/*.py "$APPDIR/usr/lib/safe-disk-cleaner/safe_disk_cleaner/"
+cp -a "$ROOT/src/safe_disk_cleaner/locale" "$APPDIR/usr/lib/safe-disk-cleaner/safe_disk_cleaner/"
 install -D -m 755 "$ROOT/safe-disk-cleaner"               "$APPDIR/usr/bin/safe-disk-cleaner"
 install -D -m 755 "$ROOT/helper/safe-disk-cleaner-helper" "$APPDIR/usr/libexec/safe-disk-cleaner-helper"
 install -D -m 644 "$ROOT/data/$APP_ID.metainfo.xml"       "$APPDIR/usr/share/metainfo/$APP_ID.appdata.xml"

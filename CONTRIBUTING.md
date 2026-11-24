@@ -47,6 +47,8 @@ Please make sure both pass before opening a pull request.
 | `src/safe_disk_cleaner/helper.py` | Privileged operations (runs as root) — re-validates everything |
 | `src/safe_disk_cleaner/cleaner.py` | Turns your selection into a plan and runs it |
 | `src/safe_disk_cleaner/window.py` | GTK 4 / libadwaita interface |
+| `src/safe_disk_cleaner/i18n.py` | gettext setup shared by the app and the root helper |
+| `po/` | Translation template (`.pot`) and translations (`<lang>.po`) |
 | `packaging/build-deb.sh` | Builds the `.deb` |
 
 ## Rules for code that runs as root
@@ -56,6 +58,26 @@ Please make sure both pass before opening a pull request.
 1. accept only values from a whitelist or a strict regular expression,
 2. re-check the system's current state instead of trusting what the app sends,
 3. come with a test that tries to misuse the new code.
+
+## Translating the app
+
+The interface and the text report use gettext. English strings in the code are the `msgid`s;
+translations live in `po/<lang>.po` and are compiled into
+`src/safe_disk_cleaner/locale/<lang>/LC_MESSAGES/safe-disk-cleaner.mo`, which is what the app,
+the `.deb`, `install.sh` and the AppImage all ship.
+
+```bash
+# after changing or adding English text in src/safe_disk_cleaner/*.py
+bash po/update.sh          # refresh the .pot, merge into every .po, rebuild the .mo files
+bash po/update.sh es       # only one language
+```
+
+Edit `po/<lang>.po` with any PO editor (Poedit, Gtranslator, or a text editor) and run
+`po/update.sh` again to compile it. Placeholders such as `{name}` must be kept unchanged, and
+`msgstr` must stay empty for untranslated entries so the English text is shown instead.
+
+The `.desktop` file and the AppStream metainfo carry their own `Name[es]` / `Comment[es]` and
+`xml:lang="es"` entries; keep those in sync with the PO file.
 
 ## Building the .deb and the AppImage
 

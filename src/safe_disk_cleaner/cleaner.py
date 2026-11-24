@@ -15,6 +15,8 @@ from . import policy
 from .cache_info import KNOWN_CACHES
 from .model import Category, Item
 from .util import disk_usage, running_flatpaks, running_process_names, running_snaps, total_free_bytes, which
+from .i18n import _
+
 
 DEV_HELPER = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "helper",
                                            "safe-disk-cleaner-helper"))
@@ -65,9 +67,9 @@ class Plan:
         for d in self.user_deletes:
             paths = d["paths"]
             if len(paths) <= 3:
-                lines += [f"delete {p}" for p in paths]
+                lines += [_("delete {arg0}").format(arg0=(p)) for p in paths]
             else:
-                lines.append(f"delete {len(paths)} files/folders in {d['base']}")
+                lines.append(_("delete {arg0} files/folders in {arg1}").format(arg0=(len(paths)), arg1=(d['base'])))
         if self.flatpak_user_refs:
             lines.append("flatpak uninstall --user --noninteractive " + " ".join(self.flatpak_user_refs))
         for op in self.root_ops:
@@ -136,10 +138,10 @@ def safe_remove(path: str, base: str) -> int:
     base_real = os.path.realpath(base)
     parent_real = os.path.realpath(os.path.dirname(path))
     if parent_real != base_real and not parent_real.startswith(base_real + os.sep):
-        raise UnsafePath(f"{path} is outside {base}")
+        raise UnsafePath(_("{arg0} is outside {arg1}").format(arg0=(path), arg1=(base)))
     target = os.path.join(parent_real, os.path.basename(path))
     if os.path.basename(path) in ("", ".", ".."):
-        raise UnsafePath(f"bad path {path}")
+        raise UnsafePath(_("bad path {arg0}").format(arg0=(path)))
     if not os.path.lexists(target):
         return 0
     size = disk_usage(target)
@@ -215,8 +217,7 @@ def run_root_ops(ops: list[dict], log: Log) -> tuple[int, list[str]]:
     """Run privileged operations in ONE pkexec call. Returns (failures, errors)."""
     prepared = prepare_helper()
     if prepared is None:
-        return len(ops), ["pkexec (package “pkexec” or “polkit”) is not installed, so administrator tasks "
-                          "can't run."]
+        return len(ops), [_("pkexec (package “pkexec” or “polkit”) is not installed, so administrator tasks can't run.")]
     cmd, stage = prepared
     try:
         return _run_helper(cmd, ops, log)
@@ -226,15 +227,20 @@ def run_root_ops(ops: list[dict], log: Log) -> tuple[int, list[str]]:
 
 
 def _run_helper(cmd: list[str], ops: list[dict], log: Log) -> tuple[int, list[str]]:
-    log("Asking for your password…")
+    log(_("Asking for your password…"))
     try:
         proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 text=True)
     except OSError as exc:
-        return len(ops), [f"Could not start the helper: {exc}"]
+        return len(ops), [_("Could not start the helper: {arg0}").format(arg0=(exc))]
     assert proc.stdin and proc.stdout and proc.stderr
     try:
-        proc.stdin.write(json.dumps({"operations": ops}))
+        # pkexec clears the environment; tell the helper which language to speak
+        # for the messages it shows (the commands themselves always run in C locale).
+        lang = (os.environ.get("LANGUAGE") or os.environ.get("LC_ALL")
+                or os.environ.get("LANG") or "")
+        lang = lang.split(":")[0].split(".")[0].split("_")[0]
+        proc.stdin.write(json.dumps({"operations": ops, "lang": lang}))
         proc.stdin.close()
     except BrokenPipeError:
         pass
@@ -265,9 +271,9 @@ def _run_helper(cmd: list[str], ops: list[dict], log: Log) -> tuple[int, list[st
     stderr = proc.stderr.read()
     rc = proc.wait()
     if rc in (126, 127) and not finished:
-        return len(ops), ["Administrator tasks were skipped: the password prompt was cancelled or not allowed."]
+        return len(ops), [_("Administrator tasks were skipped: the password prompt was cancelled or not allowed.")]
     if not finished:
-        errors.append("The helper stopped unexpectedly. " + stderr.strip()[-300:])
+        errors.append(_("The helper stopped unexpectedly. ") + stderr.strip()[-300:])
         failures = max(failures, 1)
     return failures, errors
 
@@ -282,7 +288,7 @@ def execute(plan: Plan, log: Log) -> tuple[int, list[str]]:
 
     for d in plan.user_deletes:
         base = d["base"]
-        log(f"→ Deleting {len(d['paths'])} item(s) in {base}")
+        log(_("→ Deleting {arg0} item(s) in {arg1}").format(arg0=(len(d['paths'])), arg1=(base)))
         done = 0
         for p in d["paths"]:
             name = os.path.basename(p)
@@ -291,13 +297,13 @@ def execute(plan: Plan, log: Log) -> tuple[int, list[str]]:
                 watch = KNOWN_CACHES.get(name, (None, None, None, (name.lower(),)))[3]
                 busy = [w for w in watch if w.lower() in procs]
                 if busy:
-                    log(f"   skipped {p}: {busy[0]} is running")
+                    log(_("   skipped {arg0}: {arg1} is running").format(arg0=(p), arg1=(busy[0])))
                     continue
             if "/.var/app/" in p and os.path.basename(base) in flatpaks:
-                log(f"   skipped {p}: the app is running")
+                log(_("   skipped {arg0}: the app is running").format(arg0=(p)))
                 continue
             if "/snap/" in p and base.rstrip("/").split("/")[-2] in snaps:
-                log(f"   skipped {p}: the app is running")
+                log(_("   skipped {arg0}: the app is running").format(arg0=(p)))
                 continue
             try:
                 safe_remove(p, base)
@@ -305,7 +311,7 @@ def execute(plan: Plan, log: Log) -> tuple[int, list[str]]:
             except (OSError, UnsafePath) as exc:
                 errors.append(f"{p}: {exc}")
                 log(f"   ✗ {p}: {exc}")
-        log(f"   deleted {done}")
+        log(_("   deleted {arg0}").format(arg0=(done)))
 
     if plan.flatpak_user_refs:
         argv = [which("flatpak") or "flatpak", "uninstall", "--user", "--noninteractive", *plan.flatpak_user_refs]
@@ -315,7 +321,7 @@ def execute(plan: Plan, log: Log) -> tuple[int, list[str]]:
             if line.strip():
                 log("   " + line.strip())
         if res.returncode != 0:
-            errors.append("Removing your personal Flatpak runtimes failed.")
+            errors.append(_("Removing your personal Flatpak runtimes failed."))
 
     if plan.root_ops:
         _failures, errs = run_root_ops(plan.root_ops, log)
